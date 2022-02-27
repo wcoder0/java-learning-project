@@ -1,0 +1,50 @@
+server:
+  max-http-header-size: 8192
+  port: 8092
+spring:
+  application:
+    name: medical-equipment
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    dbname: equipment
+    url: jdbc:mysql://172.52.0.193@:13306/equipment
+    username: root
+    password: mysql
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+logging:
+  level:
+    com:
+      tct: debug
+      tct.tianshu.assets.dao: debug
+    root: info
+
+mybatis-plus:
+  type-aliases-package: com.java.daily.*
+  mapper-locations: classpath*:mappers/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    call-setters-on-nulls: true
+  global-config:
+    db-config:
+      table-prefix: tb_
+      ##update-strategy: ignored
+    banner: false
+
+
+upload:
+  #    assetsPath: /data/assetsFile
+  #上传文件本地保存路径
+  assetsPath: D:\assetCode\assetsFile
+  #文件上传ftp路径
+  path: /data/file
+  #nginx静态代理文件地址前缀
+  urlPrefix: http://172.51.216.105:9090
+
+
+
+
