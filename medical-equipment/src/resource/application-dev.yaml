@@ -8,9 +8,12 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.cj.jdbc.Driver
     dbname: equipment
-    url: jdbc:mysql://172.52.0.193@:13306/equipment
-    username: root
-    password: mysql
+#    url: jdbc:mysql://172.52.0.193@:13306/equipment
+    url: jdbc:mysql://39.106.34.200@:13306/iep-data
+#    username: root
+    username: iep_data
+#    password: mysql
+    password: fEwjKt8DHcGKaeGz
 
 
   servlet:
@@ -22,6 +25,15 @@ spring:
 #  resources:
 #    static-locations:
 #      - classpath:/
+
+  devtools:
+    restart:
+      enabled: true  #设置开启热部署
+      additional-paths: src/main/java #重启目录
+      exclude: WEB-INF/**
+    freemarker:
+      cache: false    #页面不加载缓存，修改即时生效
+
 
 logging:
   level:
