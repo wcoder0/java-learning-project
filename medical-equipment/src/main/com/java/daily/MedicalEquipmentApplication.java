@@ -15,6 +15,8 @@ public class MedicalEquipmentApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(MedicalEquipmentApplication.class, args);
+
+
         System.out.println("*********MedicalEquipmentApplication启动成功*********");
     }
 
