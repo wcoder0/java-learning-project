@@ -1,17 +1,15 @@
 package com.java.daily.model;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+import java.util.*;
+
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author wm
@@ -26,6 +24,27 @@ public class Equipment implements Serializable {
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
+
+    @TableId(value = "eid")
+    private String eid;
+
+    @TableId(value = "quantity")
+    private String quantity;
+
+    @TableId(value = "standard")
+    private String standard;
+
+    @TableId(value = "number")
+    private String number;
+
+    @TableId(value = "provider")
+    private String provider;
+
+    @TableId(value = "approve")
+    private String approve;
+
+    @TableId(value = "instruction")
+    private String instruction;
 
     @TableField("type_id")
     private Integer typeId;
@@ -45,5 +64,16 @@ public class Equipment implements Serializable {
     @TableField("state")
     private Integer state;
 
+    @TableField("equipment_type_id")
+    private Integer equipmentTypeId;
+
+    @TableField("equipment_type")
+    private String equipmentType;
+
+    @TableField("department_id")
+    private Integer departmentId;
+
+    @TableField("department")
+    private String department;
 
 }

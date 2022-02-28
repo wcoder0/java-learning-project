@@ -2,16 +2,20 @@ package com.java.daily.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
+
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
+
 import java.io.Serializable;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author wm
@@ -36,8 +40,8 @@ public class EquipmentType implements Serializable {
     @TableField("update_time")
     private Date updateTime;
 
-    @TableField("type")
-    private String type;
+    @TableField("instruction")
+    private String instruction;
 
     @TableField("state")
     private Integer state;

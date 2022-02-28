@@ -2,16 +2,20 @@ package com.java.daily.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
+
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
+
 import java.io.Serializable;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author wm
@@ -63,5 +67,10 @@ public class User implements Serializable {
     @TableField("email")
     private String email;
 
+    @TableField("department_id")
+    private Integer departmentId;
+
+    @TableField("department")
+    private String department;
 
 }

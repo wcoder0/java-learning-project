@@ -4,13 +4,16 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
+
 import java.io.Serializable;
+import java.util.*;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author wm
@@ -29,11 +32,16 @@ public class Department implements Serializable {
     @TableField("name")
     private String name;
 
-    @TableField("address")
-    private String address;
+    @TableField("instruction")
+    private String instruction;
 
     @TableField("state")
     private Integer state;
 
+    @TableField("create_time")
+    private Date createTime;
+
+    @TableField("update_time")
+    private Date updateTime;
 
 }
