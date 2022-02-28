@@ -25,29 +25,26 @@ public class Equipment implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @TableId(value = "eid")
+    @TableField(value = "eid")
     private String eid;
 
-    @TableId(value = "quantity")
+    @TableField(value = "quantity")
     private String quantity;
 
-    @TableId(value = "standard")
+    @TableField(value = "standard")
     private String standard;
 
-    @TableId(value = "number")
+    @TableField(value = "number")
     private String number;
 
-    @TableId(value = "provider")
+    @TableField(value = "provider")
     private String provider;
 
-    @TableId(value = "approve")
+    @TableField(value = "approve")
     private String approve;
 
-    @TableId(value = "instruction")
+    @TableField(value = "instruction")
     private String instruction;
-
-    @TableField("type_id")
-    private Integer typeId;
 
     @TableField("name")
     private String name;
@@ -57,9 +54,6 @@ public class Equipment implements Serializable {
 
     @TableField("update_time")
     private Date updateTime;
-
-    @TableField("type")
-    private String type;
 
     @TableField("state")
     private Integer state;

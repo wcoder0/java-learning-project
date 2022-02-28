@@ -14,13 +14,13 @@ public class EquipmentRepair {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @TableId(value = "eid")
+    @TableField(value = "eid")
     private String eid;
 
-    @TableId(value = "equipment_id")
+    @TableField(value = "equipment_id")
     private String equipmentId;
 
-    @TableId(value = "equipment_name")
+    @TableField(value = "equipment_name")
     private String equipmentName;
 
     @TableField("create_time")
