@@ -17,6 +17,8 @@ public class RespModel<T> {
 
    private static final long serialVersionUID = 1L;
 
+   private boolean success;
+
    /**
     * 状态码
     */
@@ -79,7 +81,7 @@ public class RespModel<T> {
     * @return 成功消息
     */
    public static <T> RespModel<T> success(String msg, T data) {
-      return new RespModel<>(HttpStatus.OK.value(), msg, data);
+      return new RespModel<>(true, HttpStatus.OK.value(), msg, data);
    }
 
 
@@ -110,7 +112,7 @@ public class RespModel<T> {
     * @return 警告消息
     */
    public static <T> RespModel<T> error(String msg, T data) {
-      return new RespModel<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), msg, data);
+      return new RespModel<>(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), msg, data);
    }
 
    /**
@@ -121,7 +123,7 @@ public class RespModel<T> {
     * @return 警告消息
     */
    public static RespModel<Void> error(int code, String msg) {
-      return new RespModel<>(code, msg, null);
+      return new RespModel<>(false, code, msg, null);
    }
 
 }

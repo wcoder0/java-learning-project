@@ -23,7 +23,7 @@ import org.springframework.stereotype.Controller;
  * @since 2022-02-27
  */
 @Slf4j
-@Controller
+@RestController
 @RequestMapping("/equipment")
 public class EquipmentController {
 

@@ -23,87 +23,79 @@ import org.springframework.stereotype.Controller;
  * @since 2022-02-27
  */
 @Slf4j
-@Controller
-@RequestMapping("/equipment-type")
+@RestController
+@RequestMapping("/equipmentType")
 public class EquipmentTypeController {
 
-    @Autowired
-    private EquipmentTypeService equipmentTypeService;
+   @Autowired
+   private EquipmentTypeService equipmentTypeService;
 
-    @GetMapping("/list")
-    public RespModel equipmentTypeList(@RequestBody RequestBean requestBean) {
-        PageResult pageResult = null;
+   @GetMapping("/list")
+   public RespModel equipmentTypeList(EquipmentType equipmentType, Page<EquipmentType> page) {
+      PageResult pageResult = null;
 
-        try {
-            Page<EquipmentType> equipmentTypePage = new Page<>();
-            equipmentTypePage.setCurrent(requestBean.getPageNum());
-            equipmentTypePage.setSize(requestBean.getPageSize());
+      try {
+         page = equipmentTypeService.page(page);
 
-            Page<EquipmentType> page = equipmentTypeService.page(equipmentTypePage);
-
-            pageResult = new PageResult();
-            pageResult.setCurrPage(requestBean.getPageNum());
-            pageResult.setList(page.getRecords());
-            pageResult.setTotalCount(page.getTotal());
-            return RespModel.success(pageResult);
-        }
-        catch(Exception e) {
-            log.error("操作失败", e);
-            return RespModel.error();
-        }
-    }
+         return RespModel.success(page);
+      }
+      catch(Exception e) {
+         log.error("操作失败", e);
+         return RespModel.error();
+      }
+   }
 
 
-    @PostMapping("/add")
-    public RespModel equipmentTypeAdd(@RequestBody EquipmentType equipmentType) {
-        try {
-            equipmentTypeService.save(equipmentType);
-            return RespModel.success();
-        }
-        catch(Exception e) {
-            log.error("操作失败", e);
-            return RespModel.error();
-        }
-    }
+   @PostMapping("/add")
+   public RespModel equipmentTypeAdd(@RequestBody EquipmentType equipmentType) {
+      try {
+         equipmentTypeService.save(equipmentType);
+         return RespModel.success();
+      }
+      catch(Exception e) {
+         log.error("操作失败", e);
+         return RespModel.error();
+      }
+   }
 
-    @PutMapping("/update")
-    public RespModel updateAdd(@RequestBody EquipmentType equipmentType) {
-        try {
-            equipmentTypeService.updateById(equipmentType);
-            return RespModel.success();
-        }
-        catch(Exception e) {
-            log.error("操作失败", e);
-            return RespModel.error();
-        }
-    }
+   @PutMapping("/update")
+   public RespModel updateAdd(@RequestBody EquipmentType equipmentType) {
+      try {
+         equipmentTypeService.updateById(equipmentType);
+         return RespModel.success();
+      }
+      catch(Exception e) {
+         log.error("操作失败", e);
+         return RespModel.error();
+      }
+   }
 
-    @DeleteMapping("/delete")
-    public RespModel deleteequipmentType(@RequestParam Integer id) {
-        try {
-            QueryWrapper queryWrapper = new QueryWrapper();
-            queryWrapper.eq("id", id);
-            equipmentTypeService.remove(queryWrapper);
-        }
-        catch(Exception e) {
-            log.error("操作失败", e);
-            return RespModel.error();
-        }
+   @DeleteMapping("/delete")
+   public RespModel deleteequipmentType(@RequestParam Integer id) {
+      try {
+         QueryWrapper queryWrapper = new QueryWrapper();
+         queryWrapper.eq("id", id);
+         equipmentTypeService.remove(queryWrapper);
+      }
+      catch(Exception e) {
+         log.error("操作失败", e);
+         return RespModel.error();
+      }
 
-        return RespModel.success();
-    }
+      return RespModel.success();
+   }
 
-    @DeleteMapping("/get")
-    public RespModel getequipmentType(@RequestParam Integer id) {
-        try {
-            EquipmentType equipmentType = equipmentTypeService.getById(id);
-            return RespModel.success(equipmentType);
-        }
-        catch(Exception e) {
-            log.error("操作失败", e);
-            return RespModel.error();
-        }
-    }
+   @DeleteMapping("/get")
+   public RespModel getequipmentType(@RequestParam Integer id) {
+      try {
+         EquipmentType equipmentType = equipmentTypeService.getById(id);
+         return RespModel.success(equipmentType);
+      }
+      catch(Exception e) {
+         log.error("操作失败", e);
+         return RespModel.error();
+      }
+   }
 
 }
 

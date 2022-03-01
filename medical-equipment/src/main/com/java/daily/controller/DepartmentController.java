@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2022-02-27
  */
 @Slf4j
-@Controller
+@RestController
 @RequestMapping("/department")
 public class DepartmentController {
 
