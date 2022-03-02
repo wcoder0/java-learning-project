@@ -10,15 +10,6 @@
 <div class="layui-form">
     <div class="layui-row">
         <div class="layui-col-md4">
-            <div class="layui-form-item" style="display: none">
-                <label class="layui-form-label"></label>
-                <div class="layui-input-block">
-                    <input type="text" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-        </div>
-
-        <div class="layui-col-md4">
             <div class="layui-form-item">
                 <label class="layui-form-label">设备类型</label>
                 <div class="layui-input-block">
@@ -30,8 +21,8 @@
         <div class="layui-col-md4">
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button class="layui-btn" data-type="reload" id="roleSearch" lay-filter="roleSearch">搜索</button>
-                    <button class="layui-btn" data-type="reload" id="roleReset" lay-filter="roleReset">重置</button>
+                    <button class="layui-btn" data-type="reload" id="typeSearch" lay-filter="typeSearch">搜索</button>
+                    <button class="layui-btn" data-type="reload" id="typeReset" lay-filter="typeSearch">重置</button>
                 </div>
             </div>
         </div>
@@ -43,10 +34,8 @@
 <script src="/lib/layui/layui.js" charset="utf-8"></script>
 
 <script type="text/html" id="operation">
-    <a class="layui-btn layui-btn-xs" lay-event="editRole">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="deleteRole">删除</a>
-    <a class="layui-btn layui-btn-xs" lay-event="modifyRoleMenus">修改权限</a>
-    <a class="layui-btn layui-btn-xs" lay-event="modifyRoleTemplates">修改权限</a>
+    <a class="layui-btn layui-btn-xs" lay-event="editType">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="deleteType">删除</a>
 </script>
 
 <script>
@@ -77,7 +66,7 @@
                     {type: 'checkbox', fixed: 'left'}
                     , {field: 'id', title: 'ID', hide: true}
                     , {field: 'name', title: '设备类型', minWidth: 120}
-                    , {field: 'des', title: '描述', minWidth: 150}
+                    , {field: 'instruction', title: '描述', minWidth: 150}
                     , {fixed: 'right', title: '操作', toolbar: '#operation', minWidth: 150}
                 ]
             ]
@@ -101,7 +90,7 @@
                 , data = checkStatus.data; //获取选中的数据
             switch(obj.event) {
                 case 'add':
-                    addUser();
+                    addEquipmentType();
                     break;
                 case 'update':
                     if(data && data.length > 1) {
@@ -443,62 +432,62 @@
         });
 
         //开通用户
-        function addUser(){
-            openUser(null,"开通用户");
+        function addEquipmentType() {
+            openEquipmentType(null, "新增设备类型");
         }
 
-        function openUser(data,title){
-            var roleId = null;
-            if(data==null || data==""){
+        function openEquipmentType(data, title) {
+            if(data == null || data == "") {
                 $("#id").val("");
-            }else{
-                $("#id").val(data.id);
-                $("#username").val(data.sysUserName);
-                $("#mobile").val(data.userPhone);
-                roleId = data.roleId;
             }
-            var pageNum = $(".layui-laypage-skip").find("input").val();
-            $("#pageNum").val(pageNum);
+            else {
+                $("#id").val(data.id);
+                $("#name").val(data.name);
+                $("#instruction").val(data.instruction);
+            }
+          /*  var pageNum = $(".layui-laypage-skip").find("input").val();
+            $("#pageNum").val(pageNum);*/
 
             layer.open({
-                type:1,
+                type: 1,
                 title: title,
-                fixed:false,
-                resize :false,
+                fixed: false,
+                resize: false,
                 shadeClose: true,
                 area: ['550px'],
-                content:$('#roleForm'),
-                end:function(){
+                content: $('#roleForm'),
+                end: function() {
                     cleanUser();
                 }
             });
         }
 
         //监听提交
-        form.on('submit(userSubmit)', function(data){
+        form.on('submit(userSubmit)', function(data) {
             // TODO 校验
             formSubmit(data);
             return false;
         });
 
-       //提交表单
-        function formSubmit(obj){
+        //提交表单
+        function formSubmit(obj) {
             $.ajax({
                 type: "POST",
                 data: $("#userForm").serialize(),
                 url: "/user/setUser",
-                success: function (data) {
-                    if (data.code == 1) {
-                        layer.alert(data.msg,function(){
+                success: function(data) {
+                    if(data.code == 1) {
+                        layer.alert(data.msg, function() {
                             layer.closeAll();
                             load(obj);
                         });
-                    } else {
+                    }
+                    else {
                         layer.alert(data.msg);
                     }
                 },
-                error: function () {
-                    layer.alert("操作请求错误，请您稍后再试",function(){
+                error: function() {
+                    layer.alert("操作请求错误，请您稍后再试", function() {
                         layer.closeAll();
                         //加载load方法
                         load(obj);//自定义
@@ -536,7 +525,7 @@
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button class="layui-btn"  lay-submit="" lay-filter="userSubmit">提交</button>
+                    <button class="layui-btn" lay-submit="" lay-filter="userSubmit">提交</button>
                     <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                 </div>
             </div>

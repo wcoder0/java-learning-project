@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -30,6 +32,7 @@ public class User implements Serializable {
     private Integer id;
 
     @TableField("name")
+    @NotBlank
     private String name;
 
     @TableField("age")
