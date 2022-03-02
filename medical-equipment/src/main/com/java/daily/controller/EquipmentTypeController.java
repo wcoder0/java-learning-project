@@ -117,7 +117,7 @@ public class EquipmentTypeController {
       }
    }
 
-   @DeleteMapping("/deleteUserByIds")
+   @DeleteMapping("/deleteByIds")
    public RespModel deleteUserByIds(@RequestBody String[] ids) {
       RespModel responseModel = new RespModel();
 
