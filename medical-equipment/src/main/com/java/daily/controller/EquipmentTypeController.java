@@ -1,6 +1,8 @@
 package com.java.daily.controller;
 
 
+import java.util.*;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.java.daily.dao.EquipmentTypeMapper;
@@ -49,7 +51,16 @@ public class EquipmentTypeController {
    @PostMapping("/add")
    public RespModel equipmentTypeAdd(@RequestBody EquipmentType equipmentType) {
       try {
-         equipmentTypeService.save(equipmentType);
+         if(equipmentType.getId() == null) {
+            equipmentType.setCreateTime(new Date());
+            equipmentType.setUpdateTime(new Date());
+            equipmentTypeService.save(equipmentType);
+         }
+         else {
+            equipmentType.setUpdateTime(new Date());
+            equipmentTypeService.updateById(equipmentType);
+         }
+
          return RespModel.success();
       }
       catch(Exception e) {
@@ -61,7 +72,16 @@ public class EquipmentTypeController {
    @PutMapping("/update")
    public RespModel updateAdd(@RequestBody EquipmentType equipmentType) {
       try {
-         equipmentTypeService.updateById(equipmentType);
+         if(equipmentType.getId() == null) {
+            equipmentType.setCreateTime(new Date());
+            equipmentType.setUpdateTime(new Date());
+            equipmentTypeService.save(equipmentType);
+         }
+         else {
+            equipmentType.setUpdateTime(new Date());
+            equipmentTypeService.updateById(equipmentType);
+         }
+
          return RespModel.success();
       }
       catch(Exception e) {
@@ -70,8 +90,8 @@ public class EquipmentTypeController {
       }
    }
 
-   @DeleteMapping("/delete")
-   public RespModel deleteequipmentType(@RequestParam Integer id) {
+   @DeleteMapping("/delete/{id}")
+   public RespModel deleteequipmentType(@PathVariable("id") Integer id) {
       try {
          QueryWrapper queryWrapper = new QueryWrapper();
          queryWrapper.eq("id", id);
@@ -85,7 +105,7 @@ public class EquipmentTypeController {
       return RespModel.success();
    }
 
-   @DeleteMapping("/get")
+   @GetMapping("/get")
    public RespModel getequipmentType(@RequestParam Integer id) {
       try {
          EquipmentType equipmentType = equipmentTypeService.getById(id);
@@ -95,6 +115,19 @@ public class EquipmentTypeController {
          log.error("操作失败", e);
          return RespModel.error();
       }
+   }
+
+   @DeleteMapping("/deleteUserByIds")
+   public RespModel deleteUserByIds(@RequestBody String[] ids) {
+      RespModel responseModel = new RespModel();
+
+      if(null == ids) {
+         return RespModel.error("入参为空");
+      }
+
+      equipmentTypeService.removeByIds(Arrays.asList(ids));
+      responseModel.setSuccess(true);
+      return responseModel;
    }
 
 }

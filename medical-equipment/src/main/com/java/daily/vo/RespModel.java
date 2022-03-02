@@ -81,7 +81,7 @@ public class RespModel<T> {
     * @return 成功消息
     */
    public static <T> RespModel<T> success(String msg, T data) {
-      return new RespModel<>(true, HttpStatus.OK.value(), msg, data);
+      return new RespModel<>(true, 0, msg, data);
    }
 
 

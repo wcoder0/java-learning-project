@@ -2,9 +2,6 @@ package com.java.daily.model;
 
 import java.io.Serializable;
 import java.util.*;
-
-import javax.validation.constraints.NotBlank;
-
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -49,7 +46,6 @@ public class Equipment implements Serializable {
     private String instruction;
 
     @TableField("name")
-    @NotBlank
     private String name;
 
     @TableField("create_time")

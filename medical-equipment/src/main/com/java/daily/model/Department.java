@@ -5,9 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableField;
 
 import java.io.Serializable;
 import java.util.*;
-
-import javax.validation.constraints.NotBlank;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -30,7 +27,6 @@ public class Department implements Serializable {
     private Integer id;
 
     @TableField("name")
-    @NotBlank
     private String name;
 
     @TableField("instruction")
