@@ -25,85 +25,94 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/equipment")
 public class EquipmentController {
 
-   @Autowired
-   private EquipmentService equipmentService;
+    @Autowired
+    private EquipmentService equipmentService;
 
 
-   @GetMapping("/list")
-   public RespModel equipmentTypeList(Equipment equipment, Page<Equipment> page) {
+    @GetMapping("/list")
+    public RespModel equipmentTypeList(Equipment equipment, Page<Equipment> page) {
 
-      try {
-         page = equipmentService.page(page);
-         return RespModel.success(page);
-      }
-      catch(Exception e) {
-         log.error("操作失败", e);
-         return RespModel.error();
-      }
-   }
+        try {
+            page = equipmentService.page(page);
+            return RespModel.success(page);
+        }
+        catch(Exception e) {
+            log.error("操作失败", e);
+            return RespModel.error();
+        }
+    }
 
 
-   @PostMapping("/add")
-   public RespModel equipmentAdd(@RequestBody Equipment equipment) {
-      try {
-         equipmentService.save(equipment);
-         return RespModel.success();
-      }
-      catch(Exception e) {
-         log.error("操作失败", e);
-         return RespModel.error();
-      }
-   }
+    @PostMapping("/add")
+    public RespModel equipmentAdd(@RequestBody Equipment equipment) {
+        try {
+            if(equipment.getId() == null) {
+                equipment.setCreateTime(new Date());
+                equipment.setUpdateTime(new Date());
+                equipmentService.save(equipment);
+            }
+            else {
+                equipment.setUpdateTime(new Date());
+                equipmentService.updateById(equipment);
+            }
 
-   @PutMapping("/update")
-   public RespModel updateAdd(@RequestBody Equipment equipment) {
-      try {
-         equipmentService.updateById(equipment);
-         return RespModel.success();
-      }
-      catch(Exception e) {
-         log.error("操作失败", e);
-         return RespModel.error();
-      }
-   }
+            return RespModel.success();
+        }
+        catch(Exception e) {
+            log.error("操作失败", e);
+            return RespModel.error();
+        }
+    }
 
-   @DeleteMapping("/delete/{id}")
-   public RespModel deleteequipment(@PathVariable Integer id) {
-      try {
-         equipmentService.removeById(id);
-      }
-      catch(Exception e) {
-         log.error("操作失败", e);
-         return RespModel.error();
-      }
+    @PutMapping("/update")
+    public RespModel updateAdd(@RequestBody Equipment equipment) {
+        try {
+            equipmentService.updateById(equipment);
+            return RespModel.success();
+        }
+        catch(Exception e) {
+            log.error("操作失败", e);
+            return RespModel.error();
+        }
+    }
 
-      return RespModel.success();
-   }
+    @DeleteMapping("/delete/{id}")
+    public RespModel deleteequipment(@PathVariable Integer id) {
+        try {
+            equipmentService.removeById(id);
+        }
+        catch(Exception e) {
+            log.error("操作失败", e);
+            return RespModel.error();
+        }
 
-   @GetMapping("/get/{id}")
-   public RespModel getequipment(@PathVariable Integer id) {
-      try {
-         Equipment equipment = equipmentService.getById(id);
-         return RespModel.success(equipment);
-      }
-      catch(Exception e) {
-         log.error("操作失败", e);
-         return RespModel.error();
-      }
-   }
+        return RespModel.success();
+    }
 
-   @DeleteMapping("/deleteByIds")
-   public RespModel deleteUserByIds(@RequestBody String[] ids) {
-      RespModel responseModel = new RespModel();
+    @GetMapping("/get/{id}")
+    public RespModel getequipment(@PathVariable Integer id) {
+        try {
+            Equipment equipment = equipmentService.getById(id);
+            return RespModel.success(equipment);
+        }
+        catch(Exception e) {
+            log.error("操作失败", e);
+            return RespModel.error();
+        }
+    }
 
-      if(null == ids) {
-         return RespModel.error("入参为空");
-      }
+    @DeleteMapping("/deleteByIds")
+    public RespModel deleteUserByIds(@RequestBody String[] ids) {
+        RespModel responseModel = new RespModel();
 
-      equipmentService.removeByIds(Arrays.asList(ids));
-      responseModel.setSuccess(true);
-      return responseModel;
-   }
+        if(null == ids) {
+            return RespModel.error("入参为空");
+        }
+
+        equipmentService.removeByIds(Arrays.asList(ids));
+        responseModel.setSuccess(true);
+        return responseModel;
+    }
 
 }
 

@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/lib/layui/css/layui.css" media="all"/>
-    <title>departManager</title>
+    <title>repairManager</title>
 </head>
 <body>
 <div class="layui-form">
     <div class="layui-row">
         <div class="layui-col-md4">
             <div class="layui-form-item">
-                <label class="layui-form-label">科室</label>
+                <label class="layui-form-label">设备编码</label>
                 <div class="layui-input-block">
-                    <input type="text" id="search_name" name="name" autocomplete="off" class="layui-input">
+                    <input type="text" id="eid" name="eid" autocomplete="off" class="layui-input">
                 </div>
             </div>
         </div>
@@ -21,14 +21,14 @@
         <div class="layui-col-md4">
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button class="layui-btn" data-type="reload" id="departSearch" lay-filter="departSearch">搜索</button>
-                    <button class="layui-btn" data-type="reload" id="departReset" lay-filter="departReset">重置</button>
+                    <button class="layui-btn" data-type="reload" id="search" lay-filter="search">搜索</button>
+                    <button class="layui-btn" data-type="reload" id="reset" lay-filter="reset">重置</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<table class="layui-hide" id="depart" lay-filter="depart"></table>
+<table class="layui-hide" id="repair" lay-filter="depart"></table>
 <script src="/lib/jquery/jquery.min.js"></script>
 <script src="/lib/layui/layui.js" charset="utf-8"></script>
 
@@ -41,7 +41,7 @@
     layui.use(['table', 'form'], function() {
         var table = layui.table;
         var form = layui.form;
-        var webservice = "/department";
+        var webservice = "/repair";
         var listUrl = webservice + "/list";
         var deleteUrl = webservice + "/delete";
         var deleteByIdsUrl = webservice + "/deleteByIds";
