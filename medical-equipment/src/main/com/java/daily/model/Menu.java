@@ -2,65 +2,70 @@ package com.java.daily.model;
 
 import java.io.Serializable;
 
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@TableName("menu")
 public class Menu implements Serializable {
 
-   private Integer menuId;
-   private String menuName;
-   private Integer type;
-   private String href;
-   private Integer target;
-   private Integer parentId;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer menuId;
+    private String menuName;
+    private Integer type;
+    private String href;
+    private Integer target;
+    private Integer parentId;
 
-   public Integer getMenuId() {
-      return menuId;
-   }
+    private Integer sort;
 
-   public void setMenuId(Integer menuId) {
-      this.menuId = menuId;
-   }
+    public Integer getMenuId() {
+        return menuId;
+    }
 
-   public String getMenuName() {
-      return menuName;
-   }
+    public void setMenuId(Integer menuId) {
+        this.menuId = menuId;
+    }
 
-   public void setMenuName(String menuName) {
-      this.menuName = menuName;
-   }
+    public String getMenuName() {
+        return menuName;
+    }
 
-   public Integer getType() {
-      return type;
-   }
+    public void setMenuName(String menuName) {
+        this.menuName = menuName;
+    }
 
-   public void setType(Integer type) {
-      this.type = type;
-   }
+    public Integer getType() {
+        return type;
+    }
 
-   public String getHref() {
-      return href;
-   }
+    public void setType(Integer type) {
+        this.type = type;
+    }
 
-   public void setHref(String href) {
-      this.href = href;
-   }
+    public String getHref() {
+        return href;
+    }
 
-   public Integer getTarget() {
-      return target;
-   }
+    public void setHref(String href) {
+        this.href = href;
+    }
 
-   public void setTarget(Integer target) {
-      this.target = target;
-   }
+    public Integer getTarget() {
+        return target;
+    }
 
-   public Integer getParentId() {
-      return parentId;
-   }
+    public void setTarget(Integer target) {
+        this.target = target;
+    }
 
-   public void setParentId(Integer parentId) {
-      this.parentId = parentId;
-   }
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
+    }
 }

@@ -8,12 +8,12 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.cj.jdbc.Driver
     dbname: equipment
-#    url: jdbc:mysql://172.52.0.193@:13306/equipment
-    url: jdbc:mysql://localhost:3306/equipment
+    url: jdbc:mysql://172.52.0.193:13306/equipment
+#    url: jdbc:mysql://localhost:3306/equipment
 
     username: root
 #    username: iep_data
-    password: root
+    password: mysql
 #    password: fEwjKt8DHcGKaeGz
 
 

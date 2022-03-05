@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/lib/layui/css/layui.css" media="all"/>
-    <title>userManager</title>
+    <title>equipmentType</title>
 </head>
 <body>
-<div id="searchForm" class="layui-form" action="" method="post">
+<div class="layui-form">
     <div class="layui-row">
         <div class="layui-col-md4">
             <div class="layui-form-item">
-                <label class="layui-form-label">姓名</label>
+                <label class="layui-form-label">设备类型</label>
                 <div class="layui-input-block">
                     <input type="text" id="search_name" name="name" autocomplete="off" class="layui-input">
                 </div>
@@ -21,33 +21,34 @@
         <div class="layui-col-md4">
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button class="layui-btn" lay-submit="" id="search" lay-filter="search">搜索</button>
-                    <button class="layui-btn" lay-submit="" type="reset" id="reset" lay-filter="reset">重置</button>
+                    <button class="layui-btn" data-type="reload" id="typeSearch" lay-filter="typeSearch">搜索</button>
+                    <button class="layui-btn" data-type="reload" id="typeReset" lay-filter="typeSearch">重置</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<table class="layui-hide" id="user" lay-filter="user"></table>
+<table class="layui-hide" id="equipmentType" lay-filter="equipmentType"></table>
+<input id="currentRoleId" data-id="" style="display: none">
 <script src="/lib/jquery/jquery.min.js"></script>
 <script src="/lib/layui/layui.js" charset="utf-8"></script>
 
 <script type="text/html" id="operation">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
+    <a class="layui-btn layui-btn-xs" lay-event="editType">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="deleteType">删除</a>
 </script>
 
 <script>
     layui.use(['table', 'form'], function() {
         var table = layui.table;
         var form = layui.form;
-        var webservice = "/user";
-        var listUrl = webservice + "/list";
-        var deleteUrl = webservice + "/delete";
-        var deleteByIdsUrl = webservice + "/deleteByIds";
+        var webservice = "/equipmentType";
+        var findRoles = webservice + "/list";
+        var deleteRole = webservice + "/delete";
+        var deleteRoleByIds = webservice + "/deleteByIds";
 
         var roleTable = table.render({
-            elem: '#user'
+            elem: '#equipmentType'
             , toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
             , defaultToolbar: []
             , request: {//current=1&size=2
@@ -55,16 +56,14 @@
                 , limitName: 'size' //每页数据量的参数名，默认：limit
             }
             , page: true
-            , url: listUrl
+            , url: findRoles
             , cellMinWidth: 100 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
             , cols: [//标题栏
                 [
                     {type: 'checkbox', fixed: 'left'}
                     , {field: 'id', title: 'ID', hide: true}
-                    , {field: 'name', title: '姓名', minWidth: 120}
-                    , {field: 'username', title: '用户名', minWidth: 120}
-                    , {field: 'department', title: '科室', minWidth: 120}
-                    , {field: 'phone', title: '电话', minWidth: 120}
+                    , {field: 'name', title: '设备类型', minWidth: 120}
+                    , {field: 'createTime', title: '创建时间', minWidth: 120}
                     , {field: 'updateTime', title: '修改时间', minWidth: 120}
                     , {field: 'instruction', title: '描述', minWidth: 150}
                     , {fixed: 'right', title: '操作', toolbar: '#operation', minWidth: 150}
@@ -85,12 +84,12 @@
 
 
         //监听头工具栏事件
-        table.on('toolbar(user)', function(obj) {
+        table.on('toolbar(equipmentType)', function(obj) {
             var checkStatus = table.checkStatus(obj.config.id)
                 , data = checkStatus.data; //获取选中的数据
             switch(obj.event) {
                 case 'add':
-                    openForm(null, "新增");
+                    addEquipmentType();
                     break;
                 case 'update':
                     if(data && data.length > 1) {
@@ -103,25 +102,27 @@
                         return;
                     }
 
-                    openForm(data[0], "修改");
+                    // goEdit(data[0]);
+                    openEquipmentType(data[0], "修改设备类型");
                     break;
                 case 'delete':
                     goDelete(data);
                     break;
             }
+            ;
         });
 
         //监听行工具事件
-        table.on('tool(user)', function(obj) {
+        table.on('tool(equipmentType)', function(obj) {
             var data = obj.data;
-            if(obj.event === 'delete') {
+            if(obj.event === 'deleteType') {
                 layer.confirm('真的删除行么', function(index) {
                     doDelete(data.id)
                     layer.close(index);
                 });
             }
-            else if(obj.event === 'edit') {
-                openForm(data, "修改");
+            else if(obj.event === 'editType') {
+                openEquipmentType(data, "修改设备类型");
             }
         });
 
@@ -147,7 +148,7 @@
         function doDelete(id) {
             $.ajax({
                 type: 'DELETE',
-                url: deleteUrl + "/" + id,
+                url: deleteRole + "/" + id,
                 dataType: 'json',
                 contentType: "application/json",
                 success: function(data) {
@@ -163,7 +164,7 @@
         function doDeleteByIds(ids) {
             $.ajax({
                 type: 'DELETE',
-                url: deleteByIdsUrl,
+                url: deleteRoleByIds,
                 dataType: 'json',
                 data: JSON.stringify(ids),
                 contentType: "application/json",
@@ -177,27 +178,18 @@
             });
         }
 
-        function reload(obj) {
-            if(obj) {
-                //执行重载
-                roleTable.reload({
-                    where: obj.field,
-                    page: {}
-                });
-            }
-            else {
-                //执行重载
-                roleTable.reload({
-                    page: {}
-                });
-            }
+        function reload() {
+            //执行重载
+            roleTable.reload('id', {
+                page: {}
+            });
         }
 
         //搜索加载--数据表格重载
         var $ = layui.$, active = {
             reload: function() {
                 //执行重载
-                table.reload('user', {
+                table.reload('role', {
                     page: {
                         curr: 1 //重新从第 1 页开始
                     }
@@ -208,34 +200,25 @@
             }
         };
 
-        form.on('submit(search)', function(data) {
-            //重新加载table
-            reload(data);
-            return false;
-        });
 
-        form.on('submit(reset)', function() {
-            $("#search_name").val();
-            //重新加载table
-            reload(null);
-            return false;
-        });
-
-
-        /*$('#search').on('click', function() {
+        $('#roleSearch').on('click', function() {
             //ids=new Array();
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
         });
 
-        $('#reset').on('click', function() {
+        $('#roleReset').on('click', function() {
             $("#name").val('');
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
-        });*/
+        });
 
+        //开通用户
+        function addEquipmentType() {
+            openEquipmentType(null, "新增设备类型");
+        }
 
-        function openForm(data, title) {
+        function openEquipmentType(data, title) {
             if(data == null || data == "") {
                 $("#id").val("");
             }
@@ -243,11 +226,6 @@
                 $("#id").val(data.id);
                 $("#name").val(data.name);
                 $("#instruction").val(data.instruction);
-                $("#username").val(data.username);
-                $("#age").val(data.age);
-                $("#sex").val(data.sex);
-                $("#phone").val(data.phone);
-                $("#password").val(data.password);
             }
 
             layer.open({
@@ -257,7 +235,7 @@
                 resize: false,
                 shadeClose: true,
                 area: ['550px'],
-                content: $('#userForm'),
+                content: $('#equipmentTypeForm'),
                 end: function() {
                     cleanForm();
                 }
@@ -278,12 +256,12 @@
                 data: JSON.stringify(obj.field),
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
-                url: "/user/add",
+                url: "/equipmentType/add",
                 success: function(data) {
                     if(data.code == 1) {
                         layer.alert(data.msg, function() {
                             layer.closeAll();
-                            reload(obj);
+                            load(obj);
                         });
                     }
                     else {
@@ -307,65 +285,20 @@
             $("#id").val("");
             $("#name").val("");
             $("#instruction").val("");
-            $("#username").val("");
-            $("#age").val("");
-            $("#sex").val("");
-            $("#phone").val("");
-            $("#password").val("");
         }
     });
 </script>
 
 
 <!--角色管理表单-->
-<div class="layui-row" id="userForm" style="display:none;">
+<div class="layui-row" id="equipmentTypeForm" style="display:none;">
     <div class="layui-col-md11">
         <form class="layui-form" action="">
             <input id="id" type="hidden" name="id"/>
             <div class="layui-form-item">
-                <label class="layui-form-label">姓名</label>
+                <label class="layui-form-label">设备类型</label>
                 <div class="layui-input-block">
-                    <input type="text" id="name" name="name" lay-verify="required" lay-reqtext="姓名是必填项"
-                           autocomplete="off"
-                           class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">用户名</label>
-                <div class="layui-input-block">
-                    <input type="text" id="username" name="username" lay-verify="required" lay-reqtext="用户名是必填项"
-                           autocomplete="off"
-                           class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">年龄</label>
-                <div class="layui-input-block">
-                    <input type="text" id="age" name="age" lay-verify="required" lay-reqtext="用户名是必填项"
-                           autocomplete="off"
-                           class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">性别</label>
-                <div class="layui-input-block">
-                    <input type="text" id="sex" name="sex" lay-verify="required" lay-reqtext="性别是必填项"
-                           autocomplete="off"
-                           class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">电话</label>
-                <div class="layui-input-block">
-                    <input type="text" id="phone" name="phone" lay-verify="required" lay-reqtext="电话是必填项"
-                           autocomplete="off"
-                           class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">密码</label>
-                <div class="layui-input-block">
-                    <input type="text" id="password" name="password" lay-verify="required" lay-reqtext="电话是必填项"
+                    <input type="text" id="name" name="name" lay-verify="required" lay-reqtext="用户名是必填项"
                            autocomplete="off"
                            class="layui-input">
                 </div>

@@ -68,4 +68,7 @@ public class User implements Serializable {
     @TableField("department")
     private String department;
 
+    @TableField(value = "instruction")
+    private String instruction;
+
 }

@@ -3,6 +3,8 @@ package com.java.daily.controller;
 
 import java.util.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.java.daily.model.User;
@@ -10,6 +12,7 @@ import com.java.daily.service.UserService;
 import com.java.daily.vo.RespModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -32,7 +35,13 @@ public class UserController {
     @GetMapping("/list")
     public RespModel list(User user, Page<User> page) {
         try {
-            page = userService.page(page);
+            QueryWrapper queryWrapper = new QueryWrapper();
+
+            if(user != null && !StringUtils.isEmpty(user.getName())) {
+                queryWrapper.likeLeft("name", user.getName());
+            }
+
+            page = userService.page(page, queryWrapper);
             return RespModel.success(page);
         }
         catch(Exception e) {
@@ -109,6 +118,22 @@ public class UserController {
 
         userService.removeByIds(Arrays.asList(ids));
         responseModel.setSuccess(true);
+        return responseModel;
+    }
+
+    @GetMapping("/getLoginUser")
+    public RespModel<User> getLoginUser(HttpServletRequest httpServletRequest) {
+        RespModel responseModel = new RespModel();
+        Object loginUser = httpServletRequest.getSession().getAttribute("loginUser");
+
+        if(loginUser == null) {
+            responseModel.setSuccess(false);
+        }
+        else {
+            responseModel.setSuccess(true);
+        }
+
+        responseModel.setData(loginUser);
         return responseModel;
     }
 
