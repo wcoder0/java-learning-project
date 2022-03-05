@@ -6,10 +6,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.java.daily.model.EquipmentRepair;
 import com.java.daily.service.EquipmentRepairService;
-import com.java.daily.vo.PageResult;
 import com.java.daily.vo.RespModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -24,7 +24,13 @@ public class EquipmentRepairController {
     @GetMapping("/list")
     public RespModel equipmentTypeList(EquipmentRepair equipment, Page<EquipmentRepair> page) {
         try {
-            page = equipmentRepairService.page(page);
+            QueryWrapper queryWrapper = new QueryWrapper();
+
+            if(equipment != null && !StringUtils.isEmpty(equipment.getEquipmentName())) {
+                queryWrapper.likeLeft("equipment_name", equipment.getEquipmentName());
+            }
+
+            page = equipmentRepairService.page(page, queryWrapper);
             return RespModel.success(page);
         }
         catch(Exception e) {

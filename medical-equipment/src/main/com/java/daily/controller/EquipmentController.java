@@ -3,6 +3,7 @@ package com.java.daily.controller;
 
 import java.util.*;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.java.daily.model.Equipment;
 import com.java.daily.service.EquipmentService;
@@ -10,6 +11,7 @@ import com.java.daily.vo.PageResult;
 import com.java.daily.vo.RespModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -31,9 +33,14 @@ public class EquipmentController {
 
     @GetMapping("/list")
     public RespModel equipmentTypeList(Equipment equipment, Page<Equipment> page) {
-
         try {
-            page = equipmentService.page(page);
+            QueryWrapper queryWrapper = new QueryWrapper();
+
+            if(equipment != null && !StringUtils.isEmpty(equipment.getName())) {
+                queryWrapper.likeLeft("name", equipment.getName());
+            }
+
+            page = equipmentService.page(page, queryWrapper);
             return RespModel.success(page);
         }
         catch(Exception e) {

@@ -21,8 +21,8 @@
         <div class="layui-col-md4">
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button class="layui-btn" data-type="reload" id="departSearch" lay-filter="departSearch">搜索</button>
-                    <button class="layui-btn" data-type="reload" id="departReset" lay-filter="departReset">重置</button>
+                    <button class="layui-btn" lay-submit="" id="search" lay-filter="search">搜索</button>
+                    <button class="layui-btn" lay-submit="" type="reset" id="reset" lay-filter="reset">重置</button>
                 </div>
             </div>
         </div>
@@ -175,12 +175,35 @@
             });
         }
 
-        function reload() {
-            //执行重载
-            roleTable.reload('id', {
-                page: {}
-            });
+        function reload(obj) {
+            if(obj) {
+                //执行重载
+                roleTable.reload({
+                    where: obj.field,
+                    page: {}
+                });
+            }
+            else {
+                //执行重载
+                roleTable.reload({
+                    page: {}
+                });
+            }
         }
+
+
+        form.on('submit(search)', function(data) {
+            //重新加载table
+            reload(data);
+            return false;
+        });
+
+        form.on('submit(reset)', function() {
+            $("#search_name").val();
+            //重新加载table
+            reload(null);
+            return false;
+        });
 
         //搜索加载--数据表格重载
         var $ = layui.$, active = {
@@ -196,19 +219,6 @@
                 });
             }
         };
-
-
-        $('#roleSearch').on('click', function() {
-            //ids=new Array();
-            var type = $(this).data('type');
-            active[type] ? active[type].call(this) : '';
-        });
-
-        $('#roleReset').on('click', function() {
-            $("#name").val('');
-            var type = $(this).data('type');
-            active[type] ? active[type].call(this) : '';
-        });
 
 
         function openForm(data, title) {
@@ -228,7 +238,7 @@
                 resize: false,
                 shadeClose: true,
                 area: ['550px'],
-                content: $('#equipmentTypeForm'),
+                content: $('#departmentForm'),
                 end: function() {
                     cleanForm();
                 }
@@ -249,7 +259,7 @@
                 data: JSON.stringify(obj.field),
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
-                url: "/equipmentType/add",
+                url: "/department/add",
                 success: function(data) {
                     if(data.code == 1) {
                         layer.alert(data.msg, function() {
@@ -284,12 +294,12 @@
 
 
 <!--角色管理表单-->
-<div class="layui-row" id="equipmentTypeForm" style="display:none;">
+<div class="layui-row" id="departmentForm" style="display:none;">
     <div class="layui-col-md11">
         <form class="layui-form" action="">
             <input id="id" type="hidden" name="id"/>
             <div class="layui-form-item">
-                <label class="layui-form-label">设备类型</label>
+                <label class="layui-form-label">科室</label>
                 <div class="layui-input-block">
                     <input type="text" id="name" name="name" lay-verify="required" lay-reqtext="用户名是必填项"
                            autocomplete="off"
@@ -299,7 +309,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">描述</label>
                 <div class="layui-input-block">
-                    <input type="text" id="instruction" name="instruction" lay-reqtext="用户名是必填项" autocomplete="off"
+                    <input type="text" id="instruction" name="instruction" autocomplete="off"
                            class="layui-input">
                 </div>
             </div>
