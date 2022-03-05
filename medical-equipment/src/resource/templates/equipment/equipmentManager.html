@@ -11,9 +11,17 @@
     <div class="layui-row">
         <div class="layui-col-md4">
             <div class="layui-form-item">
-                <label class="layui-form-label">设备类型</label>
+                <label class="layui-form-label">设备名称</label>
                 <div class="layui-input-block">
                     <input type="text" id="search_name" name="name" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md4">
+            <div class="layui-form-item">
+                <label class="layui-form-label">设备编码</label>
+                <div class="layui-input-block">
+                    <input type="text" id="search_eid" name="name" autocomplete="off" class="layui-input">
                 </div>
             </div>
         </div>
@@ -21,14 +29,14 @@
         <div class="layui-col-md4">
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button class="layui-btn" data-type="reload" id="typeSearch" lay-filter="typeSearch">搜索</button>
-                    <button class="layui-btn" data-type="reload" id="typeReset" lay-filter="typeSearch">重置</button>
+                    <button class="layui-btn" lay-submit="" id="search" lay-filter="search">搜索</button>
+                    <button class="layui-btn" lay-submit="" type="reset" id="reset" lay-filter="reset">重置</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<table class="layui-hide" id="equipmentType" lay-filter="equipmentType"></table>
+<table class="layui-hide" id="equipment" lay-filter="equipment"></table>
 <input id="currentRoleId" data-id="" style="display: none">
 <script src="/lib/jquery/jquery.min.js"></script>
 <script src="/lib/layui/layui.js" charset="utf-8"></script>
@@ -42,13 +50,13 @@
     layui.use(['table', 'form'], function() {
         var table = layui.table;
         var form = layui.form;
-        var webservice = "/equipmentType";
+        var webservice = "/equipment";
         var findRoles = webservice + "/list";
         var deleteRole = webservice + "/delete";
         var deleteRoleByIds = webservice + "/deleteByIds";
 
         var roleTable = table.render({
-            elem: '#equipmentType'
+            elem: '#equipment'
             , toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
             , defaultToolbar: []
             , request: {//current=1&size=2
@@ -62,7 +70,10 @@
                 [
                     {type: 'checkbox', fixed: 'left'}
                     , {field: 'id', title: 'ID', hide: true}
-                    , {field: 'name', title: '设备类型', minWidth: 120}
+                    , {field: 'name', title: '设备名称', minWidth: 120}
+                    , {field: 'equipmentType', title: '设备类型', minWidth: 120}
+                    , {field: 'eid', title: '设备编码', minWidth: 120}
+                    , {field: 'provider', title: '厂商', minWidth: 120}
                     , {field: 'createTime', title: '创建时间', minWidth: 120}
                     , {field: 'updateTime', title: '修改时间', minWidth: 120}
                     , {field: 'instruction', title: '描述', minWidth: 150}
@@ -84,7 +95,7 @@
 
 
         //监听头工具栏事件
-        table.on('toolbar(equipmentType)', function(obj) {
+        table.on('toolbar(equipment)', function(obj) {
             var checkStatus = table.checkStatus(obj.config.id)
                 , data = checkStatus.data; //获取选中的数据
             switch(obj.event) {
@@ -113,7 +124,7 @@
         });
 
         //监听行工具事件
-        table.on('tool(equipmentType)', function(obj) {
+        table.on('tool(equipment)', function(obj) {
             var data = obj.data;
             if(obj.event === 'deleteType') {
                 layer.confirm('真的删除行么', function(index) {
@@ -201,19 +212,6 @@
         };
 
 
-        $('#roleSearch').on('click', function() {
-            //ids=new Array();
-            var type = $(this).data('type');
-            active[type] ? active[type].call(this) : '';
-        });
-
-        $('#roleReset').on('click', function() {
-            $("#name").val('');
-            var type = $(this).data('type');
-            active[type] ? active[type].call(this) : '';
-        });
-
-        //开通用户
         function addEquipmentType() {
             openEquipmentType(null, "新增设备类型");
         }
@@ -226,6 +224,9 @@
                 $("#id").val(data.id);
                 $("#name").val(data.name);
                 $("#instruction").val(data.instruction);
+                $("#eid").val(data.eid);
+                $("#provider").val(data.provider);
+                $("#equipmentTypeId").val(data.equipmentTypeId);
             }
 
             layer.open({
@@ -256,7 +257,7 @@
                 data: JSON.stringify(obj.field),
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
-                url: "/equipmentType/add",
+                url: "/equipment/add",
                 success: function(data) {
                     if(data.code == 1) {
                         layer.alert(data.msg, function() {
@@ -296,9 +297,33 @@
         <form class="layui-form" action="">
             <input id="id" type="hidden" name="id"/>
             <div class="layui-form-item">
-                <label class="layui-form-label">设备类型</label>
+                <label class="layui-form-label">设备名称</label>
                 <div class="layui-input-block">
                     <input type="text" id="name" name="name" lay-verify="required" lay-reqtext="用户名是必填项"
+                           autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">设备编码</label>
+                <div class="layui-input-block">
+                    <input type="text" id="eid" name="eid" lay-verify="required" lay-reqtext="用户名是必填项"
+                           autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">设备类型</label>
+                <div class="layui-input-block">
+                    <input type="text" id="equipmentTypeId" name="equipmentTypeId" lay-verify="required" lay-reqtext="用户名是必填项"
+                           autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">设备厂商</label>
+                <div class="layui-input-block">
+                    <input type="text" id="provider" name="provider" lay-verify="required" lay-reqtext="用户名是必填项"
                            autocomplete="off"
                            class="layui-input">
                 </div>
