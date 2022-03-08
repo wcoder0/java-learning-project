@@ -26,12 +26,16 @@ public class EquipmentRepairController {
     private EquipmentService equipmentService;
 
     @GetMapping("/list")
-    public RespModel equipmentTypeList(EquipmentRepair equipment, Page<EquipmentRepair> page) {
+    public RespModel equipmentTypeList(EquipmentRepair equipmentRepair, Page<EquipmentRepair> page) {
         try {
             QueryWrapper queryWrapper = new QueryWrapper();
 
-            if(equipment != null && !StringUtils.isEmpty(equipment.getEquipmentName())) {
-                queryWrapper.likeLeft("equipment_name", equipment.getEquipmentName());
+            if(equipmentRepair != null && !StringUtils.isEmpty(equipmentRepair.getEquipmentName())) {
+                queryWrapper.likeLeft("equipment_name", equipmentRepair.getEquipmentName());
+            }
+
+            if(equipmentRepair != null && !StringUtils.isEmpty(equipmentRepair.getUserId())) {
+                queryWrapper.eq("user_id", equipmentRepair.getUserId());
             }
 
             page = equipmentRepairService.page(page, queryWrapper);

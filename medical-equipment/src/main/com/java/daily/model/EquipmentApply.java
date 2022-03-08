@@ -34,4 +34,7 @@ public class EquipmentApply {
 
     @TableField("instruction")
     private String instruction;
+
+    @TableField("user_id")
+    private Integer userId;
 }

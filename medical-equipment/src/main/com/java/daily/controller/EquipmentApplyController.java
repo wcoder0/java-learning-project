@@ -32,6 +32,10 @@ public class EquipmentApplyController {
                 queryWrapper.likeLeft("equipment_name", equipmentApply.getEquipmentName());
             }
 
+            if(equipmentApply != null && !StringUtils.isEmpty(equipmentApply.getUserId())) {
+                queryWrapper.eq("user_id", equipmentApply.getUserId());
+            }
+
             page = equipmentApplyService.page(page, queryWrapper);
             return RespModel.success(page);
         }
