@@ -50,6 +50,24 @@ public class DepartmentController {
         }
     }
 
+    @GetMapping("/all")
+    public RespModel equipmentTypeList(Department department) {
+        try {
+            QueryWrapper queryWrapper = new QueryWrapper();
+
+            if(department != null && !StringUtils.isEmpty(department.getName())) {
+                queryWrapper.likeLeft("name", department.getName());
+            }
+
+            List list = departmentService.list(queryWrapper);
+            return RespModel.success(list);
+        }
+        catch(Exception e) {
+            log.error("操作失败", e);
+            return RespModel.error();
+        }
+    }
+
 
     @PostMapping("/add")
     public RespModel departmentAdd(@RequestBody Department department) {

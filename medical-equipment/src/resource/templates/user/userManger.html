@@ -45,6 +45,9 @@
         var listUrl = webservice + "/list";
         var deleteUrl = webservice + "/delete";
         var deleteByIdsUrl = webservice + "/deleteByIds";
+        var all = "/department/all";
+
+        renderSelect();
 
         var roleTable = table.render({
             elem: '#user'
@@ -126,6 +129,27 @@
         });
 
 
+        function renderSelect(){
+            $.ajax({
+                url: all,
+                dataType: 'json',
+                type: 'get',
+                contentType: "application/json",
+                success: function(data) {
+                    //使用循环遍历，给下拉列表赋值
+                    $.each(data.data, function (index, value) {
+                        // console.log(value.department_id);
+                        $('#departmentId').append(new Option(value.name,value.id));// 下拉菜单里添加元素
+                    });
+                    layui.form.render("select");//重新渲染 固定写法
+                },
+                error: function(data) {
+                    layer.msg(data.responseJSON.title);
+                }
+            });
+        }
+
+
         function goDelete(data) {
             if(data.length < 0) {
                 alert("请选中需要删除的值");
@@ -193,20 +217,6 @@
             }
         }
 
-        //搜索加载--数据表格重载
-        var $ = layui.$, active = {
-            reload: function() {
-                //执行重载
-                table.reload('user', {
-                    page: {
-                        curr: 1 //重新从第 1 页开始
-                    }
-                    , where: {
-                        name: $("#name").val()
-                    }
-                });
-            }
-        };
 
         form.on('submit(search)', function(data) {
             //重新加载table
@@ -368,6 +378,13 @@
                     <input type="text" id="password" name="password" lay-verify="required" lay-reqtext="电话是必填项"
                            autocomplete="off"
                            class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">部门</label>
+                <div class="layui-input-block">
+                    <select name="departmentId" id="departmentId" lay-verify="required">
+                    </select>
                 </div>
             </div>
             <div class="layui-form-item">

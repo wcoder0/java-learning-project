@@ -219,6 +219,12 @@
         function openEquipmentType(data, title) {
             if(data == null || data == "") {
                 $("#id").val("");
+                $("#id").val("");
+                $("#name").val("");
+                $("#instruction").val("");
+                $("#eid").val("");
+                $("#provider").val("");
+                $("#equipmentTypeId").val("");
             }
             else {
                 $("#id").val(data.id);
@@ -284,8 +290,12 @@
 
         function cleanForm() {
             $("#id").val("");
+            $("#id").val("");
             $("#name").val("");
             $("#instruction").val("");
+            $("#eid").val("");
+            $("#provider").val("");
+            $("#equipmentTypeId").val("");
         }
     });
 </script>
@@ -299,7 +309,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">设备名称</label>
                 <div class="layui-input-block">
-                    <input type="text" id="name" name="name" lay-verify="required" lay-reqtext="用户名是必填项"
+                    <input type="text" id="name" name="name" lay-verify="required" lay-reqtext="设备名称是必填项"
                            autocomplete="off"
                            class="layui-input">
                 </div>
@@ -307,7 +317,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">设备编码</label>
                 <div class="layui-input-block">
-                    <input type="text" id="eid" name="eid" lay-verify="required" lay-reqtext="用户名是必填项"
+                    <input type="text" id="eid" name="eid" lay-verify="required" lay-reqtext="设备编码是必填项"
                            autocomplete="off"
                            class="layui-input">
                 </div>
@@ -315,7 +325,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">设备类型</label>
                 <div class="layui-input-block">
-                    <input type="text" id="equipmentTypeId" name="equipmentTypeId" lay-verify="required" lay-reqtext="用户名是必填项"
+                    <input type="text" id="equipmentTypeId" name="equipmentTypeId" lay-verify="required" lay-reqtext="设备类型是必填项"
                            autocomplete="off"
                            class="layui-input">
                 </div>

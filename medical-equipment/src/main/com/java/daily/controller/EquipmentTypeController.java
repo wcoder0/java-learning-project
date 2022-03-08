@@ -52,6 +52,25 @@ public class EquipmentTypeController {
         }
     }
 
+    @GetMapping("/all")
+    public RespModel equipmentTypeList(EquipmentType equipmentType) {
+        try {
+            QueryWrapper queryWrapper = new QueryWrapper();
+
+            if(equipmentType != null && !StringUtils.isEmpty(equipmentType.getName())) {
+                queryWrapper.likeLeft("name", equipmentType.getName());
+            }
+
+            List list = equipmentTypeService.list(queryWrapper);
+
+            return RespModel.success(list);
+        }
+        catch(Exception e) {
+            log.error("操作失败", e);
+            return RespModel.error();
+        }
+    }
+
 
     @PostMapping("/add")
     public RespModel equipmentTypeAdd(@RequestBody EquipmentType equipmentType) {
