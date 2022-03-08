@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.java.daily.model.Department;
 import com.java.daily.model.User;
+import com.java.daily.service.DepartmentService;
 import com.java.daily.service.UserService;
 import com.java.daily.vo.RespModel;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +33,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private DepartmentService departmentService;
+
 
     @GetMapping("/list")
     public RespModel list(User user, Page<User> page) {
@@ -53,6 +58,11 @@ public class UserController {
     @PostMapping("/add")
     public RespModel userAdd(@RequestBody User user) {
         try {
+            if(user.getDepartmentId() != null){
+                Department department = departmentService.getById(user.getDepartmentId());
+                user.setDepartment(department.getName());
+            }
+
             if(user.getId() == null) {
                 user.setCreateTime(new Date());
                 user.setUpdateTime(new Date());

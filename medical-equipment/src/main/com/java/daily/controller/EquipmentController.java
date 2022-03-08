@@ -6,7 +6,9 @@ import java.util.*;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.java.daily.model.Equipment;
+import com.java.daily.model.EquipmentType;
 import com.java.daily.service.EquipmentService;
+import com.java.daily.service.EquipmentTypeService;
 import com.java.daily.vo.PageResult;
 import com.java.daily.vo.RespModel;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +32,8 @@ public class EquipmentController {
     @Autowired
     private EquipmentService equipmentService;
 
+    @Autowired
+    private EquipmentTypeService equipmentTypeService;
 
     @GetMapping("/list")
     public RespModel equipmentTypeList(Equipment equipment, Page<Equipment> page) {
@@ -53,6 +57,13 @@ public class EquipmentController {
     @PostMapping("/add")
     public RespModel equipmentAdd(@RequestBody Equipment equipment) {
         try {
+            Integer equipmentTypeId = equipment.getEquipmentTypeId();
+
+            if(equipmentTypeId == null){
+                EquipmentType equipmentType = equipmentTypeService.getById(equipmentTypeId);
+                equipment.setEquipmentType(equipmentType.getName());
+            }
+
             if(equipment.getId() == null) {
                 equipment.setCreateTime(new Date());
                 equipment.setUpdateTime(new Date());

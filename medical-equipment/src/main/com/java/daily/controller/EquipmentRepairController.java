@@ -4,8 +4,10 @@ import java.util.*;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.java.daily.model.Equipment;
 import com.java.daily.model.EquipmentRepair;
 import com.java.daily.service.EquipmentRepairService;
+import com.java.daily.service.EquipmentService;
 import com.java.daily.vo.RespModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ public class EquipmentRepairController {
     @Autowired
     private EquipmentRepairService equipmentRepairService;
 
+    @Autowired
+    private EquipmentService equipmentService;
 
     @GetMapping("/list")
     public RespModel equipmentTypeList(EquipmentRepair equipment, Page<EquipmentRepair> page) {
@@ -41,16 +45,23 @@ public class EquipmentRepairController {
 
 
     @PostMapping("/add")
-    public RespModel equipmentAdd(@RequestBody EquipmentRepair equipment) {
+    public RespModel equipmentAdd(@RequestBody EquipmentRepair equipmentRepair) {
         try {
-            if(equipment.getId() == null) {
-                equipment.setCreateTime(new Date());
-                equipment.setUpdateTime(new Date());
-                equipmentRepairService.save(equipment);
+            Integer equipmentId = equipmentRepair.getEquipmentId();
+
+            if(equipmentId != null) {
+                Equipment equipment = equipmentService.getById(equipmentId);
+                equipmentRepair.setEquipmentName(equipment.getName());
+            }
+
+            if(equipmentRepair.getId() == null) {
+                equipmentRepair.setCreateTime(new Date());
+                equipmentRepair.setUpdateTime(new Date());
+                equipmentRepairService.save(equipmentRepair);
             }
             else {
-                equipment.setUpdateTime(new Date());
-                equipmentRepairService.updateById(equipment);
+                equipmentRepair.setUpdateTime(new Date());
+                equipmentRepairService.updateById(equipmentRepair);
             }
 
             return RespModel.success();

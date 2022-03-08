@@ -18,7 +18,7 @@ public class EquipmentRepair {
     private String eid;
 
     @TableField(value = "equipment_id")
-    private String equipmentId;
+    private Integer equipmentId;
 
     @TableField(value = "equipment_name")
     private String equipmentName;
