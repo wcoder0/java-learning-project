@@ -67,6 +67,7 @@
 
     <modules>
         <module>medical-equipment</module>
+        <module>java-demo</module>
     </modules>
 
     <dependencyManagement>
