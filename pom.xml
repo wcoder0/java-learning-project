@@ -68,6 +68,7 @@
     <modules>
         <module>medical-equipment</module>
         <module>java-demo</module>
+        <module>kafka-demo</module>
     </modules>
 
     <dependencyManagement>
