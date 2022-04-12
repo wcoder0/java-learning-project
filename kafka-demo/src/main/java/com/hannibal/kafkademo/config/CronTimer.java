@@ -30,7 +30,7 @@ public class CronTimer {
         for(int i=0;i<5;i++){
             String msg = "Hello," + new Random().nextInt(100);
             System.out.println("发送消息"+msg);
-            kafkaTemplate.send("hannibal001", msg);
+            kafkaTemplate.send("topic9008981", msg);
         }
 
     }

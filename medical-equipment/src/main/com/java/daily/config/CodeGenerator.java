@@ -26,8 +26,8 @@ public class CodeGenerator {
     private static final String driverName = "com.mysql.cj.jdbc.Driver";
     private static final String parentPackage = "com.java.daily";
     private static final String mapperName = "dao";
-    private static final String serviceName = "service";
-    private static final String implName = "service.impl";
+    private static final String serviceName = "com.service";
+    private static final String implName = "com.service.impl";
     private static final String pojoName = "model";
     private static final String controllerName = "controller";
     private static final String xmlName = "dao";

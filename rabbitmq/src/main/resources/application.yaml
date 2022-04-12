@@ -1,0 +1,18 @@
+server:
+  max-http-header-size: 8192
+  port: 8093
+logging:
+  level:
+    com:
+      tct: debug
+      tct.tianshu.process.engine.dao: debug
+    root: info
+spring:
+  application:
+    name: ts-process-engine
+
+  rabbitmq:
+    addresses: 172.51.216.117:5672
+    listener:
+      simple:
+        acknowledge-mode: manual #手动签收

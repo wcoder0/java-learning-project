@@ -85,7 +85,7 @@
 
         //监听头工具栏事件
         table.on('toolbar(equipmentType)', function(obj) {
-            var checkStatus = table.checkStatus(obj.config.id)
+            var checkStatus = table.checkStatus(obj.com.config.id)
                 , data = checkStatus.data; //获取选中的数据
             switch(obj.event) {
                 case 'add':
