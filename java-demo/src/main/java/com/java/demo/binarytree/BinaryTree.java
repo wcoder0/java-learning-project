@@ -1,4 +1,4 @@
-package com.java.demo.test;
+package com.java.demo.binarytree;
 
 import lombok.Data;
 
