@@ -2,7 +2,7 @@ package com.java.demo.datax;
 
 import java.io.File;
 
-import com.alibaba.datax.core.Engine;
+//import com.alibaba.datax.core.Engine;
 
 public class DataxSync {
 
@@ -18,7 +18,7 @@ public class DataxSync {
         System.setProperty("datax.home", runHome);
         String jsonFullPath = runHome + File.separator + "script" + File.separator + "test.json";
         String[] params = {"-job", jsonFullPath, "-mode", "standalone", "-jobid", "-1"};
-        Engine.entry(params);
+//        Engine.entry(params);
     }
 
     public static String getCurrentClasspath() {
