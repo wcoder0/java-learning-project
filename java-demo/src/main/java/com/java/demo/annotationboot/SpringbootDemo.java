@@ -1,4 +1,4 @@
-package com.java.demo.boot;
+package com.java.demo.annotationboot;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;

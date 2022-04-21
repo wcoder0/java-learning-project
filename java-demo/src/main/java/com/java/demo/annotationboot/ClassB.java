@@ -1,11 +1,11 @@
-package com.java.demo.boot;
+package com.java.demo.annotationboot;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ClassA {
+public class ClassB {
 
     @Autowired
-    private ClassB b;
+    private ClassA a;
 }
