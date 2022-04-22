@@ -1,2 +1,6 @@
 # Project exclude paths
 /medical-equipment/target/
+/java-demo/target/
+/.idea/
+/java-demo/java-demo.iml
+/java-learning.iml
