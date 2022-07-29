@@ -70,7 +70,9 @@
         <module>java-demo</module>
         <module>kafka-demo</module>
         <module>rabbitmq</module>
-        <module>spring</module>
+        <module>spring-demo</module>
+        <module>flink_demo</module>
+        <module>redis_opt</module>
     </modules>
 
     <dependencyManagement>
