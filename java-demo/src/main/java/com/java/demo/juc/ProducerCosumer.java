@@ -13,12 +13,11 @@ public class ProducerCosumer {
         new Thread() {
             @Override
             public void run() {
-                for(int i = 0; i < 10000; i++) {
+                for (int i = 0; i < 10000; i++) {
                     try {
                         blockingQueue.put(new Integer(i));
                         System.out.println("线程1生产--------" + i);
-                    }
-                    catch(Exception e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -29,12 +28,11 @@ public class ProducerCosumer {
             @Override
             public void run() {
                 try {
-                    while(true) {
+                    while (true) {
                         Object take = blockingQueue.take();
                         System.out.println("线程2消费--------" + take);
                     }
-                }
-                catch(InterruptedException e) {
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
@@ -49,12 +47,11 @@ public class ProducerCosumer {
         new Thread() {
             @Override
             public void run() {
-                for(int i = 0; i < 10000; i++) {
+                for (int i = 0; i < 10000; i++) {
                     try {
                         blockingQueue.put(new Integer(i));
                         System.out.println("线程1生产--------" + i);
-                    }
-                    catch(Exception e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -65,13 +62,12 @@ public class ProducerCosumer {
             @Override
             public void run() {
                 try {
-                    while(true) {
+                    while (true) {
                         Object take = blockingQueue.take();
                         System.out.println("线程2消费--------" + take);
 
                     }
-                }
-                catch(InterruptedException e) {
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }

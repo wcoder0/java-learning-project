@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author wm
@@ -40,14 +40,13 @@ public class EquipmentController {
         try {
             QueryWrapper queryWrapper = new QueryWrapper();
 
-            if(equipment != null && !StringUtils.isEmpty(equipment.getName())) {
+            if (equipment != null && !StringUtils.isEmpty(equipment.getName())) {
                 queryWrapper.likeLeft("name", equipment.getName());
             }
 
             page = equipmentService.page(page, queryWrapper);
             return RespModel.success(page);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             log.error("操作失败", e);
             return RespModel.error();
         }
@@ -59,24 +58,22 @@ public class EquipmentController {
         try {
             Integer equipmentTypeId = equipment.getEquipmentTypeId();
 
-            if(equipmentTypeId == null){
+            if (equipmentTypeId == null) {
                 EquipmentType equipmentType = equipmentTypeService.getById(equipmentTypeId);
                 equipment.setEquipmentType(equipmentType.getName());
             }
 
-            if(equipment.getId() == null) {
+            if (equipment.getId() == null) {
                 equipment.setCreateTime(new Date());
                 equipment.setUpdateTime(new Date());
                 equipmentService.save(equipment);
-            }
-            else {
+            } else {
                 equipment.setUpdateTime(new Date());
                 equipmentService.updateById(equipment);
             }
 
             return RespModel.success();
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             log.error("操作失败", e);
             return RespModel.error();
         }
@@ -87,8 +84,7 @@ public class EquipmentController {
         try {
             equipmentService.updateById(equipment);
             return RespModel.success();
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             log.error("操作失败", e);
             return RespModel.error();
         }
@@ -98,8 +94,7 @@ public class EquipmentController {
     public RespModel deleteequipment(@PathVariable Integer id) {
         try {
             equipmentService.removeById(id);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             log.error("操作失败", e);
             return RespModel.error();
         }
@@ -112,8 +107,7 @@ public class EquipmentController {
         try {
             Equipment equipment = equipmentService.getById(id);
             return RespModel.success(equipment);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             log.error("操作失败", e);
             return RespModel.error();
         }
@@ -123,7 +117,7 @@ public class EquipmentController {
     public RespModel deleteUserByIds(@RequestBody String[] ids) {
         RespModel responseModel = new RespModel();
 
-        if(null == ids) {
+        if (null == ids) {
             return RespModel.error("入参为空");
         }
 

@@ -9,22 +9,30 @@
             "password": "mysql",
             "connection": [
               {
-                "querySql": ["select id,name from test1"],
-                "jdbcUrl": ["jdbc:mysql://172.52.0.193:13306/data?useUnicode=true&characterEncoding=utf8"]
-              },
- 
+                "querySql": [
+                  "select id,name from test1"
+                ],
+                "jdbcUrl": [
+                  "jdbc:mysql://172.52.0.193:13306/data?useUnicode=true&characterEncoding=utf8"
+                ]
+              }
             ]
           }
         },
         "writer": {
           "name": "mysqlwriter",
           "parameter": {
-            "column": ["id","name"],
+            "column": [
+              "id",
+              "name"
+            ],
             "connection": [
-                  {
-                    "jdbcUrl": "jdbc:mysql://172.52.0.193:13306/data?useUnicode=true&characterEncoding=utf8",
-                    "table": ["test2"]
-                  }
+              {
+                "jdbcUrl": "jdbc:mysql://172.52.0.193:13306/data?useUnicode=true&characterEncoding=utf8",
+                "table": [
+                  "test2"
+                ]
+              }
             ],
             "username": "root",
             "password": "mysql",
@@ -36,7 +44,7 @@
     "setting": {
       "speed": {
         "channel": "50"
-       }
+      }
     }
   }
 }

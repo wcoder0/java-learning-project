@@ -3,8 +3,11 @@ package com.java.daily.model;
 import com.baomidou.mybatisplus.annotation.*;
 
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotation.TableField;
+
 import java.io.Serializable;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

@@ -16,18 +16,17 @@ public class ProducerCosumer3 {
         new Thread() {
             @Override
             public void run() {
-                for(int i = 0; i < 100; i++) {
-                    synchronized(lock) {
+                for (int i = 0; i < 100; i++) {
+                    synchronized (lock) {
                         try {
-                            while(!pro.get()) {
+                            while (!pro.get()) {
                                 lock.wait();
                             }
 
                             System.out.println("线程1生产" + i);
                             pro.set(false);
                             lock.notify();
-                        }
-                        catch(InterruptedException e) {
+                        } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                     }
@@ -39,24 +38,22 @@ public class ProducerCosumer3 {
             @Override
             public void run() {
                 try {
-                    for(int i = 0; i < 100; i++) {
-                        synchronized(lock) {
+                    for (int i = 0; i < 100; i++) {
+                        synchronized (lock) {
                             try {
-                                while(pro.get()) {
+                                while (pro.get()) {
                                     lock.wait();
                                 }
 
                                 System.out.println("线程2生产" + i);
                                 pro.set(true);
                                 lock.notify();
-                            }
-                            catch(InterruptedException e) {
+                            } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
                         }
                     }
-                }
-                catch(Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

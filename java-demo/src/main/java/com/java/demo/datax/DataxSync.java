@@ -10,6 +10,7 @@ public class DataxSync {
     /**
      * mvn -U clean package assembly:assembly -Dmaven.test.skip=true
      * 下载或者编译 datax.tar.gz 解压到本地
+     *
      * @param args
      * @throws Throwable
      */
@@ -26,7 +27,7 @@ public class DataxSync {
         String currentClasspath = classLoader.getResource("").getPath();
         // 当前操作系统
         String osName = System.getProperty("os.name");
-        if(osName.startsWith("Windows")) {
+        if (osName.startsWith("Windows")) {
             // 删除path中最前面的/
             currentClasspath = currentClasspath.substring(1);
         }

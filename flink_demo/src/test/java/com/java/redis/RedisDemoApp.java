@@ -35,7 +35,6 @@ public class RedisDemoApp {
         Cursor<Map.Entry<Object, Object>> cursor = redisTemplate.opsForHash().scan(key, options);
 
 
-
         while (cursor.hasNext()) {
             long cursorId = cursor.getCursorId();
             Map.Entry<Object, Object> entry = cursor.next();

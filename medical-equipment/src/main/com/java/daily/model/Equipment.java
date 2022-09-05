@@ -2,6 +2,7 @@ package com.java.daily.model;
 
 import java.io.Serializable;
 import java.util.*;
+
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

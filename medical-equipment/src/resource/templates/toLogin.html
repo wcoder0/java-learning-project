@@ -79,7 +79,8 @@
                 </div>
             </div>
             <div class="layui-col-sm12 layui-col-md12">
-                <button class="layui-btn layui-btn-fluid" lay-submit="" lay-filter="login" style="font-weight: bold;">立即登录</button>
+                <button class="layui-btn layui-btn-fluid" lay-submit="" lay-filter="login" style="font-weight: bold;">立即登录
+                </button>
             </div>
         </form>
     </div>
@@ -125,10 +126,9 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    if(data.success){
+                    if (data.success) {
                         window.location = "/index";
-                    }
-                    else{
+                    } else {
                         layer.msg("用户名或者密码错误");
                     }
                 },

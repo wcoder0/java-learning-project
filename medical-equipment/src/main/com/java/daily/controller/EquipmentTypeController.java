@@ -19,7 +19,7 @@ import org.springframework.stereotype.Controller;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author wm
@@ -38,15 +38,14 @@ public class EquipmentTypeController {
         try {
             QueryWrapper queryWrapper = new QueryWrapper();
 
-            if(equipmentType != null && !StringUtils.isEmpty(equipmentType.getName())) {
+            if (equipmentType != null && !StringUtils.isEmpty(equipmentType.getName())) {
                 queryWrapper.likeLeft("name", equipmentType.getName());
             }
 
             page = equipmentTypeService.page(page, queryWrapper);
 
             return RespModel.success(page);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             log.error("操作失败", e);
             return RespModel.error();
         }
@@ -57,15 +56,14 @@ public class EquipmentTypeController {
         try {
             QueryWrapper queryWrapper = new QueryWrapper();
 
-            if(equipmentType != null && !StringUtils.isEmpty(equipmentType.getName())) {
+            if (equipmentType != null && !StringUtils.isEmpty(equipmentType.getName())) {
                 queryWrapper.likeLeft("name", equipmentType.getName());
             }
 
             List list = equipmentTypeService.list(queryWrapper);
 
             return RespModel.success(list);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             log.error("操作失败", e);
             return RespModel.error();
         }
@@ -75,19 +73,17 @@ public class EquipmentTypeController {
     @PostMapping("/add")
     public RespModel equipmentTypeAdd(@RequestBody EquipmentType equipmentType) {
         try {
-            if(equipmentType.getId() == null) {
+            if (equipmentType.getId() == null) {
                 equipmentType.setCreateTime(new Date());
                 equipmentType.setUpdateTime(new Date());
                 equipmentTypeService.save(equipmentType);
-            }
-            else {
+            } else {
                 equipmentType.setUpdateTime(new Date());
                 equipmentTypeService.updateById(equipmentType);
             }
 
             return RespModel.success();
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             log.error("操作失败", e);
             return RespModel.error();
         }
@@ -96,19 +92,17 @@ public class EquipmentTypeController {
     @PutMapping("/update")
     public RespModel updateAdd(@RequestBody EquipmentType equipmentType) {
         try {
-            if(equipmentType.getId() == null) {
+            if (equipmentType.getId() == null) {
                 equipmentType.setCreateTime(new Date());
                 equipmentType.setUpdateTime(new Date());
                 equipmentTypeService.save(equipmentType);
-            }
-            else {
+            } else {
                 equipmentType.setUpdateTime(new Date());
                 equipmentTypeService.updateById(equipmentType);
             }
 
             return RespModel.success();
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             log.error("操作失败", e);
             return RespModel.error();
         }
@@ -120,8 +114,7 @@ public class EquipmentTypeController {
             QueryWrapper queryWrapper = new QueryWrapper();
             queryWrapper.eq("id", id);
             equipmentTypeService.remove(queryWrapper);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             log.error("操作失败", e);
             return RespModel.error();
         }
@@ -134,8 +127,7 @@ public class EquipmentTypeController {
         try {
             EquipmentType equipmentType = equipmentTypeService.getById(id);
             return RespModel.success(equipmentType);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             log.error("操作失败", e);
             return RespModel.error();
         }
@@ -145,7 +137,7 @@ public class EquipmentTypeController {
     public RespModel deleteUserByIds(@RequestBody String[] ids) {
         RespModel responseModel = new RespModel();
 
-        if(null == ids) {
+        if (null == ids) {
             return RespModel.error("入参为空");
         }
 

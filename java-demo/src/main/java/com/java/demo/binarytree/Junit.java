@@ -14,12 +14,11 @@ public class Junit {
         BinaryTree leftNode = node.getLeftNode();
         BinaryTree rightNode = node.getRightNode();
 
-        if(leftNode != null && rightNode != null) {
+        if (leftNode != null && rightNode != null) {
             boolean b = checkTree(leftNode, rightNode);
 
             return b;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -28,17 +27,13 @@ public class Junit {
         boolean left = checkNode(leftNode);
         boolean right = checkNode(rightNode);
 
-        if(left && right) {
+        if (left && right) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
 
     }
-
-
-
 
 
 }

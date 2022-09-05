@@ -8,7 +8,7 @@ import org.junit.Test;
 public class ThreadPoolDemo {
 
     @Test
-    public void test(){
+    public void test() {
 //        ExecutorService executorService = Executors.newFixedThreadPool(1);
 
         BlockingQueue<Runnable> queue = new LinkedBlockingQueue<>(2);
@@ -22,7 +22,7 @@ public class ThreadPoolDemo {
     }
 
 
-    public class DemoThread implements Runnable{
+    public class DemoThread implements Runnable {
 
         @Override
         public void run() {

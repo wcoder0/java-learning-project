@@ -19,21 +19,19 @@ public class ProducerCosumer2 {
         new Thread() {
             @Override
             public void run() {
-                for(int i = 0; i < 100; i++) {
+                for (int i = 0; i < 100; i++) {
                     lock.lock();
                     try {
-                        while(!pro.get()) {
+                        while (!pro.get()) {
                             condition1.await();
                         }
 
                         System.out.println("线程1生产--------" + i);
                         pro.set(false);
                         condition2.signal();
-                    }
-                    catch(Exception e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
-                    }
-                    finally {
+                    } finally {
                         lock.unlock();
                     }
                 }
@@ -44,26 +42,23 @@ public class ProducerCosumer2 {
             @Override
             public void run() {
                 try {
-                    for(int i = 0; i < 100; i++) {
+                    for (int i = 0; i < 100; i++) {
                         lock.lock();
                         try {
-                            while(pro.get()) {
+                            while (pro.get()) {
                                 condition2.await();
                             }
 
                             System.out.println("线程2生产--------" + i);
                             pro.set(true);
                             condition1.signal();
-                        }
-                        catch(Exception e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
-                        }
-                        finally {
+                        } finally {
                             lock.unlock();
                         }
                     }
-                }
-                catch(Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

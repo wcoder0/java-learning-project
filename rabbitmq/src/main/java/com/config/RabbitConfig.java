@@ -76,7 +76,7 @@ public class RabbitConfig implements RabbitTemplate.ConfirmCallback, RabbitTempl
      */
     @Override
     public void confirm(CorrelationData correlationData, boolean ack, String cause) {
-        if(!ack) {
+        if (!ack) {
             log.error("消息唯一标识:" + correlationData);
             log.error("确认结果:" + ack);
             log.error("失败原因:" + cause);

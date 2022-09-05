@@ -2,6 +2,7 @@ package com.config;
 
 /**
  * rabbitMQ 交换机 枚举配置
+ *
  * @author lemon
  */
 

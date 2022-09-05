@@ -19,7 +19,7 @@ public class RabbitmqProducer {
     @Scheduled(cron = "0 0/1 * * * ?")
     public void sendMessage1() {
         System.out.println("________________________");
-        for(int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
             String msg = "Hello," + i;
             System.out.println("发送消息" + msg);
             ApplyMsgModel model = new ApplyMsgModel();

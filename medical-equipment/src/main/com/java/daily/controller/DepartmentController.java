@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author wm
@@ -37,14 +37,13 @@ public class DepartmentController {
         try {
             QueryWrapper queryWrapper = new QueryWrapper();
 
-            if(department != null && !StringUtils.isEmpty(department.getName())) {
+            if (department != null && !StringUtils.isEmpty(department.getName())) {
                 queryWrapper.likeLeft("name", department.getName());
             }
 
             page = departmentService.page(page, queryWrapper);
             return RespModel.success(page);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             log.error("操作失败", e);
             return RespModel.error();
         }
@@ -55,14 +54,13 @@ public class DepartmentController {
         try {
             QueryWrapper queryWrapper = new QueryWrapper();
 
-            if(department != null && !StringUtils.isEmpty(department.getName())) {
+            if (department != null && !StringUtils.isEmpty(department.getName())) {
                 queryWrapper.likeLeft("name", department.getName());
             }
 
             List list = departmentService.list(queryWrapper);
             return RespModel.success(list);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             log.error("操作失败", e);
             return RespModel.error();
         }
@@ -72,19 +70,17 @@ public class DepartmentController {
     @PostMapping("/add")
     public RespModel departmentAdd(@RequestBody Department department) {
         try {
-            if(department.getId() == null) {
+            if (department.getId() == null) {
                 department.setCreateTime(new Date());
                 department.setUpdateTime(new Date());
                 departmentService.save(department);
-            }
-            else {
+            } else {
                 department.setUpdateTime(new Date());
                 departmentService.updateById(department);
             }
 
             return RespModel.success();
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             log.error("操作失败", e);
             return RespModel.error();
         }
@@ -95,8 +91,7 @@ public class DepartmentController {
         try {
             departmentService.updateById(department);
             return RespModel.success();
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             log.error("操作失败", e);
             return RespModel.error();
         }
@@ -106,8 +101,7 @@ public class DepartmentController {
     public RespModel deletedepartment(@PathVariable Integer id) {
         try {
             departmentService.removeById(id);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             log.error("操作失败", e);
             return RespModel.error();
         }
@@ -120,8 +114,7 @@ public class DepartmentController {
         try {
             Department department = departmentService.getById(id);
             return RespModel.success(department);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             log.error("操作失败", e);
             return RespModel.error();
         }
@@ -131,7 +124,7 @@ public class DepartmentController {
     public RespModel deleteUserByIds(@RequestBody String[] ids) {
         RespModel responseModel = new RespModel();
 
-        if(null == ids) {
+        if (null == ids) {
             return RespModel.error("入参为空");
         }
 

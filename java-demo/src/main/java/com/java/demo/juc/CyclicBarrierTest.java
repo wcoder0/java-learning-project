@@ -14,8 +14,7 @@ public class CyclicBarrierTest {
             try {
                 Thread.sleep(1000);
                 System.out.println("所有线程到达公共屏障点，开始一起执行");
-            }
-            catch(InterruptedException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         });
@@ -25,11 +24,9 @@ public class CyclicBarrierTest {
                 System.out.println("线程1到达公共屏障点");
                 cyclicBarrier.await();
                 System.out.println("线程1到达公共屏障点，后");
-            }
-            catch(InterruptedException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
-            }
-            catch(BrokenBarrierException e) {
+            } catch (BrokenBarrierException e) {
                 e.printStackTrace();
             }
         }).start();
@@ -39,11 +36,9 @@ public class CyclicBarrierTest {
                 System.out.println("线程2到达公共屏障点");
                 cyclicBarrier.await();
                 System.out.println("线程2到达公共屏障点，后");
-            }
-            catch(InterruptedException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
-            }
-            catch(BrokenBarrierException e) {
+            } catch (BrokenBarrierException e) {
                 e.printStackTrace();
             }
         }).start();

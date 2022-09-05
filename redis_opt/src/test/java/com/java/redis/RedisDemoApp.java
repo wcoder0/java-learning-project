@@ -1,6 +1,7 @@
 package redis;
 
 import com.java.redis.DemoApplication;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,11 +15,22 @@ import java.util.Map;
 
 @SpringBootTest(classes = {DemoApplication.class})
 @RunWith(SpringRunner.class)
+@Slf4j
 public class RedisDemoApp {
 
 
     @Autowired
     private RedisTemplate redisTemplate;
+
+    @org.junit.Test
+    public void testLog() {
+        try {
+            int i = 1 / 0;
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+
+    }
 
     @org.junit.Test
     public void test() {
@@ -33,7 +45,6 @@ public class RedisDemoApp {
         redisTemplate.opsForHash().putAll(key, data);
         ScanOptions options = new ScanOptions.ScanOptionsBuilder().count(2).match("*").build();
         Cursor<Map.Entry<Object, Object>> cursor = redisTemplate.opsForHash().scan(key, options);
-
 
 
         while (cursor.hasNext()) {

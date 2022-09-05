@@ -13,12 +13,11 @@ public class CountdownLatchTest {
         CountDownLatch countdownLatch2 = new CountDownLatch(1);
 
         new Thread(() -> {
-            for(int i = 0; i < 5; i++) {
+            for (int i = 0; i < 5; i++) {
                 try {
                     System.out.println("线程1生产" + i);
                     countdownLatch1.countDown();
-                }
-                catch(Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -28,17 +27,15 @@ public class CountdownLatchTest {
             try {
                 countdownLatch1.await();
 
-                for(int i = 0; i < 10; i++) {
+                for (int i = 0; i < 10; i++) {
                     try {
                         System.out.println("线程2生产" + i);
                         countdownLatch2.countDown();
-                    }
-                    catch(Exception e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -49,16 +46,14 @@ public class CountdownLatchTest {
             try {
                 countdownLatch2.await();
 
-                for(int i = 0; i < 10; i++) {
+                for (int i = 0; i < 10; i++) {
                     try {
                         System.out.println("线程3生产" + i);
-                    }
-                    catch(Exception e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 

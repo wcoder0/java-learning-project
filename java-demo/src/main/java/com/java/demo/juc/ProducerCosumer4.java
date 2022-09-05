@@ -13,7 +13,7 @@ public class ProducerCosumer4 {
     public void test() throws Exception {
         AtomicBoolean pro = new AtomicBoolean(true);
 
-        for(int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             ThreadDemo t1 = new ThreadDemo();
             t1.setName("t1");
 
@@ -50,7 +50,7 @@ public class ProducerCosumer4 {
 
         @Override
         public void run() {
-            while(flag) {
+            while (flag) {
                 flag = true;
                 LockSupport.park();
             }

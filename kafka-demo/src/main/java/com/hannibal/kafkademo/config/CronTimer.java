@@ -27,9 +27,9 @@ public class CronTimer {
     @Scheduled(cron = "*/2 * * * * ? ")
     public void sendMessage1() {
         System.out.println("________________________");
-        for(int i=0;i<5;i++){
+        for (int i = 0; i < 5; i++) {
             String msg = "Hello," + new Random().nextInt(100);
-            System.out.println("发送消息"+msg);
+            System.out.println("发送消息" + msg);
             kafkaTemplate.send("topic9008981", msg);
         }
 

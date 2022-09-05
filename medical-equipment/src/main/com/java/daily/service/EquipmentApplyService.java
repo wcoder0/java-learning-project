@@ -5,7 +5,7 @@ import com.java.daily.model.EquipmentApply;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author wm

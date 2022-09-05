@@ -20,11 +20,11 @@ public class SpringApplicationDemo {
          */
         String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
 
-        for(String beanDefinitionName : beanDefinitionNames) {
+        for (String beanDefinitionName : beanDefinitionNames) {
 
             Object bean = applicationContext.getBean(beanDefinitionName);
 
-            if(bean.getClass().getPackage().getName().startsWith("com.demo.spring")) {
+            if (bean.getClass().getPackage().getName().startsWith("com.demo.spring")) {
                 System.out.println(beanDefinitionName);
             }
         }

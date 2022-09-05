@@ -30,18 +30,17 @@ public class EquipmentRepairController {
         try {
             QueryWrapper queryWrapper = new QueryWrapper();
 
-            if(equipmentRepair != null && !StringUtils.isEmpty(equipmentRepair.getEquipmentName())) {
+            if (equipmentRepair != null && !StringUtils.isEmpty(equipmentRepair.getEquipmentName())) {
                 queryWrapper.likeLeft("equipment_name", equipmentRepair.getEquipmentName());
             }
 
-            if(equipmentRepair != null && !StringUtils.isEmpty(equipmentRepair.getUserId())) {
+            if (equipmentRepair != null && !StringUtils.isEmpty(equipmentRepair.getUserId())) {
                 queryWrapper.eq("user_id", equipmentRepair.getUserId());
             }
 
             page = equipmentRepairService.page(page, queryWrapper);
             return RespModel.success(page);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             log.error("操作失败", e);
             return RespModel.error();
         }
@@ -53,24 +52,22 @@ public class EquipmentRepairController {
         try {
             Integer equipmentId = equipmentRepair.getEquipmentId();
 
-            if(equipmentId != null) {
+            if (equipmentId != null) {
                 Equipment equipment = equipmentService.getById(equipmentId);
                 equipmentRepair.setEquipmentName(equipment.getName());
             }
 
-            if(equipmentRepair.getId() == null) {
+            if (equipmentRepair.getId() == null) {
                 equipmentRepair.setCreateTime(new Date());
                 equipmentRepair.setUpdateTime(new Date());
                 equipmentRepairService.save(equipmentRepair);
-            }
-            else {
+            } else {
                 equipmentRepair.setUpdateTime(new Date());
                 equipmentRepairService.updateById(equipmentRepair);
             }
 
             return RespModel.success();
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             log.error("操作失败", e);
             return RespModel.error();
         }
@@ -81,8 +78,7 @@ public class EquipmentRepairController {
         try {
             equipmentRepairService.updateById(equipment);
             return RespModel.success();
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             log.error("操作失败", e);
             return RespModel.error();
         }
@@ -92,8 +88,7 @@ public class EquipmentRepairController {
     public RespModel deleteequipment(@PathVariable Integer id) {
         try {
             equipmentRepairService.removeById(id);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             log.error("操作失败", e);
             return RespModel.error();
         }
@@ -106,8 +101,7 @@ public class EquipmentRepairController {
         try {
             EquipmentRepair equipment = equipmentRepairService.getById(id);
             return RespModel.success(equipment);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             log.error("操作失败", e);
             return RespModel.error();
         }
@@ -117,7 +111,7 @@ public class EquipmentRepairController {
     public RespModel deleteUserByIds(@RequestBody String[] ids) {
         RespModel responseModel = new RespModel();
 
-        if(null == ids) {
+        if (null == ids) {
             return RespModel.error("入参为空");
         }
 

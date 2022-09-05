@@ -4,10 +4,10 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.java.daily.model.Department">
-        <id column="id" property="id" />
-        <result column="name" property="name" />
-        <result column="address" property="address" />
-        <result column="state" property="state" />
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="address" property="address"/>
+        <result column="state" property="state"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->

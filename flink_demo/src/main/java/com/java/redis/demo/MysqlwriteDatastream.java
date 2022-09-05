@@ -99,9 +99,9 @@ public class MysqlwriteDatastream {
         public void close() throws Exception {
 
             super.close();
-            if(conn != null) conn.close();
-            if(insertStmt != null) insertStmt.close();
-            if(updateStmt != null) updateStmt.close();
+            if (conn != null) conn.close();
+            if (insertStmt != null) insertStmt.close();
+            if (updateStmt != null) updateStmt.close();
         }
     }
 }

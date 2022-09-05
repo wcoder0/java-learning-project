@@ -13,10 +13,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class SimpleConsumer {
 
-        // 消费监听
-        @KafkaListener(topics = "topic9008981")
-        public void onMessage1(ConsumerRecord<?, ?> record){
-            // 消费的哪个topic、partition的消息,打印出消息内容
-            System.out.println("消费消息："+record.topic()+"-"+record.partition()+"-"+record.value());
-        }
+    // 消费监听
+    @KafkaListener(topics = "topic9008981")
+    public void onMessage1(ConsumerRecord<?, ?> record) {
+        // 消费的哪个topic、partition的消息,打印出消息内容
+        System.out.println("消费消息：" + record.topic() + "-" + record.partition() + "-" + record.value());
+    }
 }

@@ -5,7 +5,7 @@ import com.java.daily.model.Menu;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author wm

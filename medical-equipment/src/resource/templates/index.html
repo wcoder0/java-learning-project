@@ -31,7 +31,7 @@
         .layadmin-pagetabs .layui-icon-prev {
             left: 0;
             border-left: none;
-           /* border-right: 1px solid #f6f6f6;*/
+            /* border-right: 1px solid #f6f6f6;*/
         }
 
         .layadmin-pagetabs .layadmin-tabs-control {
@@ -44,7 +44,7 @@
             transition: all .3s;
             -webkit-transition: all .3s;
             box-sizing: border-box;
-           /* border-left: 1px solid #f6f6f6;*/
+            /* border-left: 1px solid #f6f6f6;*/
         }
 
         .layadmin-pagetabs .layui-icon-prev {
@@ -64,11 +64,11 @@
             overflow: hidden;
         }
 
-        .menuTab{
+        .menuTab {
             height: 60px;
         }
 
-        #LAY_app_tabsheader{
+        #LAY_app_tabsheader {
             left: 220px;
             width: 1065px;
             height: 60px;
@@ -77,7 +77,7 @@
 
         .layui-tab {
             margin: 10px 0;
-            text-align: left!important;
+            text-align: left !important;
         }
 
         .layadmin-pagetabs .layui-tab-title {
@@ -117,9 +117,9 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul id="menu" class="layui-nav layui-nav-tree" lay-filter="menu">
-               <!-- <li class="layui-nav-item layui-hide-xs"><a class="menuItem" data-href="userManager">用户管理</a></li>
-                <li class="layui-nav-item layui-hide-xs"><a class="menuItem" data-href="">疫情填报</a></li>
-                <li class="layui-nav-item layui-hide-xs"><a class="menuItem" data-href="">疫苗预约</a></li>-->
+                <!-- <li class="layui-nav-item layui-hide-xs"><a class="menuItem" data-href="userManager">用户管理</a></li>
+                 <li class="layui-nav-item layui-hide-xs"><a class="menuItem" data-href="">疫情填报</a></li>
+                 <li class="layui-nav-item layui-hide-xs"><a class="menuItem" data-href="">疫苗预约</a></li>-->
             </ul>
         </div>
     </div>
@@ -192,8 +192,7 @@
                                 var $parent = $(parent);
                                 $li.append($parent);
                                 $menuUl.append($li);
-                            }
-                            else {
+                            } else {
                                 var dl = '<dl class="layui-nav-child">';
                                 var $dl = $(dl);
                                 var $li = $menuUl.children("li.layui-nav-item:last-child");
@@ -202,8 +201,7 @@
 
                                 if ($li.children("dl").length != 0) {
                                     $li.children("dl").append($dd);
-                                }
-                                else {
+                                } else {
                                     $dl = $(dl);
                                     $dl.append($dd);
                                     $li.append($dl);
@@ -306,8 +304,7 @@
                         $($('li.menuTab')[j - 1]).click();
                         $($('li.menuTab')[j - 1]).addClass('layui-this');
                         break;
-                    }
-                    else {
+                    } else {
                         $($('li.menuTab')[j + 1]).click();
                         $($('li.menuTab')[j + 1]).addClass('layui-this');
                         break;
@@ -387,6 +384,7 @@
                 marginLeft: 0 - scrollVal + 'px'
             }, "fast");
         }
+
         //查看右侧隐藏的选项卡
         function scrollTabRight() {
             var marginLeftVal = Math.abs(parseInt($('.page-tabs-content').css('margin-left')));

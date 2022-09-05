@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author wm
@@ -42,14 +42,13 @@ public class UserController {
         try {
             QueryWrapper queryWrapper = new QueryWrapper();
 
-            if(user != null && !StringUtils.isEmpty(user.getName())) {
+            if (user != null && !StringUtils.isEmpty(user.getName())) {
                 queryWrapper.likeLeft("name", user.getName());
             }
 
             page = userService.page(page, queryWrapper);
             return RespModel.success(page);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             log.error("操作失败", e);
             return RespModel.error();
         }
@@ -58,24 +57,22 @@ public class UserController {
     @PostMapping("/add")
     public RespModel userAdd(@RequestBody User user) {
         try {
-            if(user.getDepartmentId() != null){
+            if (user.getDepartmentId() != null) {
                 Department department = departmentService.getById(user.getDepartmentId());
                 user.setDepartment(department.getName());
             }
 
-            if(user.getId() == null) {
+            if (user.getId() == null) {
                 user.setCreateTime(new Date());
                 user.setUpdateTime(new Date());
                 userService.save(user);
-            }
-            else {
+            } else {
                 user.setUpdateTime(new Date());
                 userService.updateById(user);
             }
 
             return RespModel.success();
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             log.error("操作失败", e);
             return RespModel.error();
         }
@@ -86,8 +83,7 @@ public class UserController {
         try {
             userService.updateById(user);
             return RespModel.success();
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             log.error("操作失败", e);
             return RespModel.error();
         }
@@ -97,8 +93,7 @@ public class UserController {
     public RespModel deleteUser(@PathVariable Integer id) {
         try {
             userService.removeById(id);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             log.error("操作失败", e);
             return RespModel.error();
         }
@@ -111,8 +106,7 @@ public class UserController {
         try {
             User user = userService.getById(id);
             return RespModel.success(user);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             log.error("操作失败", e);
             return RespModel.error();
         }
@@ -122,7 +116,7 @@ public class UserController {
     public RespModel deleteUserByIds(@RequestBody String[] ids) {
         RespModel responseModel = new RespModel();
 
-        if(null == ids) {
+        if (null == ids) {
             return RespModel.error("入参为空");
         }
 
@@ -136,10 +130,9 @@ public class UserController {
         RespModel responseModel = new RespModel();
         Object loginUser = httpServletRequest.getSession().getAttribute("loginUser");
 
-        if(loginUser == null) {
+        if (loginUser == null) {
             responseModel.setSuccess(false);
-        }
-        else {
+        } else {
             responseModel.setSuccess(true);
         }
 

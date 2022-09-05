@@ -4,19 +4,19 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.java.daily.model.User">
-        <id column="id" property="id" />
-        <result column="name" property="name" />
-        <result column="age" property="age" />
-        <result column="sex" property="sex" />
-        <result column="address" property="address" />
-        <result column="phone" property="phone" />
-        <result column="password" property="password" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
-        <result column="username" property="username" />
-        <result column="type" property="type" />
-        <result column="state" property="state" />
-        <result column="email" property="email" />
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="age" property="age"/>
+        <result column="sex" property="sex"/>
+        <result column="address" property="address"/>
+        <result column="phone" property="phone"/>
+        <result column="password" property="password"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="username" property="username"/>
+        <result column="type" property="type"/>
+        <result column="state" property="state"/>
+        <result column="email" property="email"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->

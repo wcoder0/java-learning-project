@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author wm

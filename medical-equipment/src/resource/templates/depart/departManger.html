@@ -38,7 +38,7 @@
 </script>
 
 <script>
-    layui.use(['table', 'form'], function() {
+    layui.use(['table', 'form'], function () {
         var table = layui.table;
         var form = layui.form;
         var webservice = "/department";
@@ -68,7 +68,7 @@
                     , {fixed: 'right', title: '操作', toolbar: '#operation', minWidth: 150}
                 ]
             ]
-            , parseData: function(res) { //res 即为原始返回的数据
+            , parseData: function (res) { //res 即为原始返回的数据
                 return {
                     "code": "0", //解析接口状态
                     //"msg": res.msg, //解析提示文本
@@ -76,27 +76,27 @@
                     "data": res.data.records //解析数据列表
                 }
             }
-            , done: function(res, curr, count) { // 隐藏列
+            , done: function (res, curr, count) { // 隐藏列
 
             }
         });
 
 
         //监听头工具栏事件
-        table.on('toolbar(depart)', function(obj) {
+        table.on('toolbar(depart)', function (obj) {
             var checkStatus = table.checkStatus(obj.com.config.id)
                 , data = checkStatus.data; //获取选中的数据
-            switch(obj.event) {
+            switch (obj.event) {
                 case 'add':
                     openForm(null, "新增");
                     break;
                 case 'update':
-                    if(data && data.length > 1) {
+                    if (data && data.length > 1) {
                         layer.alert('请选择一个要修改的值');
                         return;
                     }
 
-                    if(data && data.length < 1) {
+                    if (data && data.length < 1) {
                         layer.alert('请选择一个要修改的值');
                         return;
                     }
@@ -110,32 +110,30 @@
         });
 
         //监听行工具事件
-        table.on('tool(depart)', function(obj) {
+        table.on('tool(depart)', function (obj) {
             var data = obj.data;
-            if(obj.event === 'delete') {
-                layer.confirm('真的删除行么', function(index) {
+            if (obj.event === 'delete') {
+                layer.confirm('真的删除行么', function (index) {
                     doDelete(data.id)
                     layer.close(index);
                 });
-            }
-            else if(obj.event === 'edit') {
+            } else if (obj.event === 'edit') {
                 openForm(data, "修改");
             }
         });
 
 
         function goDelete(data) {
-            if(data.length < 0) {
+            if (data.length < 0) {
                 alert("请选中需要删除的值");
                 return;
-            }
-            else {
+            } else {
                 var ids = [];
-                for(i in data) {
+                for (i in data) {
                     ids.push(data[i].id);
                 }
 
-                layer.confirm('真的删除行么', function(index) {
+                layer.confirm('真的删除行么', function (index) {
                     doDeleteByIds(ids);
                     layer.close(index);
                 });
@@ -148,11 +146,11 @@
                 url: deleteUrl + "/" + id,
                 dataType: 'json',
                 contentType: "application/json",
-                success: function(data) {
+                success: function (data) {
                     reload();
                     layer.msg("删除成功");
                 },
-                error: function(data) {
+                error: function (data) {
                     layer.msg(data.responseJSON.title);
                 }
             });
@@ -165,25 +163,24 @@
                 dataType: 'json',
                 data: JSON.stringify(ids),
                 contentType: "application/json",
-                success: function(data) {
+                success: function (data) {
                     reload();
                     layer.msg("删除成功");
                 },
-                error: function(data) {
+                error: function (data) {
                     layer.msg(data.responseJSON.title);
                 }
             });
         }
 
         function reload(obj) {
-            if(obj) {
+            if (obj) {
                 //执行重载
                 roleTable.reload({
                     where: obj.field,
                     page: {}
                 });
-            }
-            else {
+            } else {
                 //执行重载
                 roleTable.reload({
                     page: {}
@@ -192,13 +189,13 @@
         }
 
 
-        form.on('submit(search)', function(data) {
+        form.on('submit(search)', function (data) {
             //重新加载table
             reload(data);
             return false;
         });
 
-        form.on('submit(reset)', function() {
+        form.on('submit(reset)', function () {
             $("#search_name").val();
             //重新加载table
             reload(null);
@@ -207,7 +204,7 @@
 
         //搜索加载--数据表格重载
         var $ = layui.$, active = {
-            reload: function() {
+            reload: function () {
                 //执行重载
                 table.reload('role', {
                     page: {
@@ -222,10 +219,9 @@
 
 
         function openForm(data, title) {
-            if(data == null || data == "") {
+            if (data == null || data == "") {
                 $("#id").val("");
-            }
-            else {
+            } else {
                 $("#id").val(data.id);
                 $("#name").val(data.name);
                 $("#instruction").val(data.instruction);
@@ -239,14 +235,14 @@
                 shadeClose: true,
                 area: ['550px'],
                 content: $('#departmentForm'),
-                end: function() {
+                end: function () {
                     cleanForm();
                 }
             });
         }
 
         //监听提交
-        form.on('submit(submit)', function(data) {
+        form.on('submit(submit)', function (data) {
             // TODO 校验
             formSubmit(data);
             return false;
@@ -260,22 +256,21 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 url: "/department/add",
-                success: function(data) {
-                    if(data.code == 1) {
-                        layer.alert(data.msg, function() {
+                success: function (data) {
+                    if (data.code == 1) {
+                        layer.alert(data.msg, function () {
                             layer.closeAll();
                             load(obj);
                         });
-                    }
-                    else {
+                    } else {
                         layer.alert(data.msg);
                     }
 
                     layer.closeAll();
                     reload();
                 },
-                error: function() {
-                    layer.alert("操作请求错误，请您稍后再试", function() {
+                error: function () {
+                    layer.alert("操作请求错误，请您稍后再试", function () {
                         layer.closeAll();
                         //加载load方法
                         load(obj);//自定义

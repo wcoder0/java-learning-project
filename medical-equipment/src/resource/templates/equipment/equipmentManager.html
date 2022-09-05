@@ -47,7 +47,7 @@
 </script>
 
 <script>
-    layui.use(['table', 'form'], function() {
+    layui.use(['table', 'form'], function () {
         var table = layui.table;
         var form = layui.form;
         var webservice = "/equipment";
@@ -80,7 +80,7 @@
                     , {fixed: 'right', title: '操作', toolbar: '#operation', minWidth: 150}
                 ]
             ]
-            , parseData: function(res) { //res 即为原始返回的数据
+            , parseData: function (res) { //res 即为原始返回的数据
                 return {
                     "code": "0", //解析接口状态
                     //"msg": res.msg, //解析提示文本
@@ -88,27 +88,27 @@
                     "data": res.data.records //解析数据列表
                 }
             }
-            , done: function(res, curr, count) { // 隐藏列
+            , done: function (res, curr, count) { // 隐藏列
 
             }
         });
 
 
         //监听头工具栏事件
-        table.on('toolbar(equipment)', function(obj) {
+        table.on('toolbar(equipment)', function (obj) {
             var checkStatus = table.checkStatus(obj.com.config.id)
                 , data = checkStatus.data; //获取选中的数据
-            switch(obj.event) {
+            switch (obj.event) {
                 case 'add':
                     addEquipmentType();
                     break;
                 case 'update':
-                    if(data && data.length > 1) {
+                    if (data && data.length > 1) {
                         layer.alert('请选择一个要修改的值');
                         return;
                     }
 
-                    if(data && data.length < 1) {
+                    if (data && data.length < 1) {
                         layer.alert('请选择一个要修改的值');
                         return;
                     }
@@ -124,32 +124,30 @@
         });
 
         //监听行工具事件
-        table.on('tool(equipment)', function(obj) {
+        table.on('tool(equipment)', function (obj) {
             var data = obj.data;
-            if(obj.event === 'deleteType') {
-                layer.confirm('真的删除行么', function(index) {
+            if (obj.event === 'deleteType') {
+                layer.confirm('真的删除行么', function (index) {
                     doDelete(data.id)
                     layer.close(index);
                 });
-            }
-            else if(obj.event === 'editType') {
+            } else if (obj.event === 'editType') {
                 openEquipmentType(data, "修改设备类型");
             }
         });
 
 
         function goDelete(data) {
-            if(data.length < 0) {
+            if (data.length < 0) {
                 alert("请选中需要删除的值");
                 return;
-            }
-            else {
+            } else {
                 var ids = [];
-                for(i in data) {
+                for (i in data) {
                     ids.push(data[i].id);
                 }
 
-                layer.confirm('真的删除行么', function(index) {
+                layer.confirm('真的删除行么', function (index) {
                     doDeleteByIds(ids);
                     layer.close(index);
                 });
@@ -162,11 +160,11 @@
                 url: deleteRole + "/" + id,
                 dataType: 'json',
                 contentType: "application/json",
-                success: function(data) {
+                success: function (data) {
                     reload();
                     layer.msg("删除成功");
                 },
-                error: function(data) {
+                error: function (data) {
                     layer.msg(data.responseJSON.title);
                 }
             });
@@ -179,11 +177,11 @@
                 dataType: 'json',
                 data: JSON.stringify(ids),
                 contentType: "application/json",
-                success: function(data) {
+                success: function (data) {
                     reload();
                     layer.msg("删除成功");
                 },
-                error: function(data) {
+                error: function (data) {
                     layer.msg(data.responseJSON.title);
                 }
             });
@@ -198,7 +196,7 @@
 
         //搜索加载--数据表格重载
         var $ = layui.$, active = {
-            reload: function() {
+            reload: function () {
                 //执行重载
                 table.reload('role', {
                     page: {
@@ -217,7 +215,7 @@
         }
 
         function openEquipmentType(data, title) {
-            if(data == null || data == "") {
+            if (data == null || data == "") {
                 $("#id").val("");
                 $("#id").val("");
                 $("#name").val("");
@@ -225,8 +223,7 @@
                 $("#eid").val("");
                 $("#provider").val("");
                 $("#equipmentTypeId").val("");
-            }
-            else {
+            } else {
                 $("#id").val(data.id);
                 $("#name").val(data.name);
                 $("#instruction").val(data.instruction);
@@ -243,14 +240,14 @@
                 shadeClose: true,
                 area: ['550px'],
                 content: $('#equipmentTypeForm'),
-                end: function() {
+                end: function () {
                     cleanForm();
                 }
             });
         }
 
         //监听提交
-        form.on('submit(submit)', function(data) {
+        form.on('submit(submit)', function (data) {
             // TODO 校验
             formSubmit(data);
             return false;
@@ -264,22 +261,21 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 url: "/equipment/add",
-                success: function(data) {
-                    if(data.code == 1) {
-                        layer.alert(data.msg, function() {
+                success: function (data) {
+                    if (data.code == 1) {
+                        layer.alert(data.msg, function () {
                             layer.closeAll();
                             load(obj);
                         });
-                    }
-                    else {
+                    } else {
                         layer.alert(data.msg);
                     }
 
                     layer.closeAll();
                     reload();
                 },
-                error: function() {
-                    layer.alert("操作请求错误，请您稍后再试", function() {
+                error: function () {
+                    layer.alert("操作请求错误，请您稍后再试", function () {
                         layer.closeAll();
                         //加载load方法
                         load(obj);//自定义
