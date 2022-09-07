@@ -3,5 +3,6 @@ D:\projects\demo项目\java-learning-project\flink_demo\src\main\java\com\java\r
 D:\projects\demo项目\java-learning-project\flink_demo\src\main\java\com\java\redis\FlinkApplication.java
 D:\projects\demo项目\java-learning-project\flink_demo\src\main\java\com\java\redis\demo\MysqlSourceDataStream.java
 D:\projects\demo项目\java-learning-project\flink_demo\src\main\java\com\java\redis\binlog\BinlogStreamExample.java
+D:\projects\demo项目\java-learning-project\flink_demo\src\main\java\com\java\redis\binlog\StreamTableCdc.java
 D:\projects\demo项目\java-learning-project\flink_demo\src\main\java\com\java\redis\demo\MysqlWriteDataset.java
 D:\projects\demo项目\java-learning-project\flink_demo\src\main\java\com\java\redis\binlog\FlinkCDC1.java

@@ -73,6 +73,7 @@
         <module>spring-demo</module>
         <module>flink_demo</module>
         <module>redis_opt</module>
+        <module>streamapi</module>
     </modules>
 
     <dependencyManagement>
