@@ -25,21 +25,6 @@ public class BinlogStreamExample {
         Properties extralPro = new Properties();
         extralPro.setProperty("AllowPublicKeyRetrieval", "true");
         SourceFunction<String> sourceFunction = MySQLSource.<String>builder()
-//                .hostname("pc-2zeb24q41l2ipd9kn.rwlb.rds.aliyuncs.com")
-////                .port(3306)
-////                .databaseList("hr_dataanalysis") // monitor all tables under inventory database
-////                .tableList("hr_dataanalysis.dw_schedule_task")
-////                .username("bip_hr_serv")
-////                .password("hbvzOoHcocB2y9SFtV8iWDjY5DKLXIjn")
-
-//                .hostname("pc-2zeb24q41l2ipd9kn.rwlb.rds.aliyuncs.com")
-//                .port(3306)
-//                .databaseList("hr_dataanalysis") // set captured database
-//                .tableList("hr_dataanalysis.ts_day_attend_fix") // set captured table
-//                .username("bip_hr_serv")
-//                .password("hbvzOoHcocB2y9SFtV8iWDjY5DKLXIjn")
-
-
                 .hostname("localhost")
                 .port(3306)
                 .databaseList("test_sql") // monitor all tables under inventory database
