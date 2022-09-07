@@ -56,7 +56,7 @@ public class StreamTableCdc {
                         ")";
         // 简单的聚合处理
         String transformSQL =
-                "insert into test_cdc_sink select * from mysql_binlog";
+                "insert into test_cdc_sink select * from mysql_binlog  ";
 
         tableEnv.executeSql(sourceDDL);
         tableEnv.executeSql(sinkDDL);
