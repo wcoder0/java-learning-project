@@ -1,0 +1,298 @@
+package com.example.flink14.analysis.test;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.Map;
+
+public class AttendTableSchema {
+
+    private static Map<String, Map<String, String>> tableSchemas = new HashMap();
+
+    static {
+        Map<String, String> schemeSchema = new HashMap<>();
+        schemeSchema.put("", "");
+        Map<String, String> tsItemMainSchema = new HashMap<>();
+        Map<String, String> tsItemSchema = new HashMap<>();
+
+        Map<String, String> monthMap = new HashMap<>();
+        monthMap.put("ID", "varchar");
+        monthMap.put("TENANTID", "varchar");
+        monthMap.put("BU_ID", "varchar");
+        monthMap.put("ORG_ID", "varchar");
+        monthMap.put("DEPT_ID", "varchar");
+        monthMap.put("STAFF_ID", "varchar");
+        monthMap.put("TSYEAR", "char");
+        monthMap.put("TSMONTH", "char");
+        monthMap.put("LATECOUNT", "int");
+        monthMap.put("EARLYCOUNT", "int");
+        monthMap.put("ABSENTHOUR", "decimal");
+        monthMap.put("ABSENTCOUNT", "int");
+        monthMap.put("NIGHTSHIFTHOUR", "decimal");
+        monthMap.put("LATELONG", "decimal");
+        monthMap.put("EARLYLONG", "decimal");
+        monthMap.put("WORKDAYS", "decimal");
+        monthMap.put("ACTUALWORKDAYS", "decimal");
+        monthMap.put("WORKHOURS", "decimal");
+        monthMap.put("ACTUALWORKHOURS", "decimal");
+        monthMap.put("WORKPERCENT", "decimal");
+        monthMap.put("NOBRUSHCOUNT", "int");
+        monthMap.put("RESIGNCNT", "int");
+        monthMap.put("UNNORMALLEN", "decimal");
+        monthMap.put("ISALLDUTY", "char");
+        monthMap.put("LACTATIONCOUNT", "int");
+        monthMap.put("ISEFFECTIVE", "char");
+        monthMap.put("ISAPPROVE", "char");
+        monthMap.put("ISUSEFUL", "char");
+        monthMap.put("ELASTIC_RULE", "smallint");
+        monthMap.put("OUTSIDECNT", "int");
+        monthMap.put("LEAVECNT", "int");
+        monthMap.put("F_I_1", "int");
+        monthMap.put("F_I_2", "int");
+        monthMap.put("F_I_3", "int");
+        monthMap.put("F_I_4", "int");
+        monthMap.put("F_I_5", "int");
+        monthMap.put("F_I_6", "int");
+        monthMap.put("F_I_7", "int");
+        monthMap.put("F_I_8", "int");
+        monthMap.put("F_I_9", "int");
+        monthMap.put("F_I_10", "int");
+        monthMap.put("F_I_11", "int");
+        monthMap.put("F_I_12", "int");
+        monthMap.put("F_I_13", "int");
+        monthMap.put("F_I_14", "int");
+        monthMap.put("F_I_15", "int");
+        monthMap.put("F_I_16", "int");
+        monthMap.put("F_I_17", "int");
+        monthMap.put("F_I_18", "int");
+        monthMap.put("F_I_19", "int");
+        monthMap.put("F_I_20", "int");
+        monthMap.put("F_I_21", "int");
+        monthMap.put("F_I_22", "int");
+        monthMap.put("F_I_23", "int");
+        monthMap.put("F_I_24", "int");
+        monthMap.put("F_I_25", "int");
+        monthMap.put("F_I_26", "int");
+        monthMap.put("F_I_27", "int");
+        monthMap.put("F_I_28", "int");
+        monthMap.put("F_I_29", "int");
+        monthMap.put("F_I_30", "int");
+        monthMap.put("F_N_1", "decimal");
+        monthMap.put("F_N_2", "decimal");
+        monthMap.put("F_N_3", "decimal");
+        monthMap.put("F_N_4", "decimal");
+        monthMap.put("F_N_5", "decimal");
+        monthMap.put("F_N_6", "decimal");
+        monthMap.put("F_N_7", "decimal");
+        monthMap.put("F_N_8", "decimal");
+        monthMap.put("F_N_9", "decimal");
+        monthMap.put("F_N_10", "decimal");
+        monthMap.put("F_N_11", "decimal");
+        monthMap.put("F_N_12", "decimal");
+        monthMap.put("F_N_13", "decimal");
+        monthMap.put("F_N_14", "decimal");
+        monthMap.put("F_N_15", "decimal");
+        monthMap.put("F_N_16", "decimal");
+        monthMap.put("F_N_17", "decimal");
+        monthMap.put("F_N_18", "decimal");
+        monthMap.put("F_N_19", "decimal");
+        monthMap.put("F_N_20", "decimal");
+        monthMap.put("F_N_21", "decimal");
+        monthMap.put("F_N_22", "decimal");
+        monthMap.put("F_N_23", "decimal");
+        monthMap.put("F_N_24", "decimal");
+        monthMap.put("F_N_25", "decimal");
+        monthMap.put("F_N_26", "decimal");
+        monthMap.put("F_N_27", "decimal");
+        monthMap.put("F_N_28", "decimal");
+        monthMap.put("F_N_29", "decimal");
+        monthMap.put("F_N_30", "decimal");
+        monthMap.put("F_N_31", "decimal");
+        monthMap.put("F_N_32", "decimal");
+        monthMap.put("F_N_33", "decimal");
+        monthMap.put("F_N_34", "decimal");
+        monthMap.put("F_N_35", "decimal");
+        monthMap.put("F_N_36", "decimal");
+        monthMap.put("F_N_37", "decimal");
+        monthMap.put("F_N_38", "decimal");
+        monthMap.put("F_N_39", "decimal");
+        monthMap.put("F_N_40", "decimal");
+        monthMap.put("F_N_41", "decimal");
+        monthMap.put("F_N_42", "decimal");
+        monthMap.put("F_N_43", "decimal");
+        monthMap.put("F_N_44", "decimal");
+        monthMap.put("F_N_45", "decimal");
+        monthMap.put("F_N_46", "decimal");
+        monthMap.put("F_N_47", "decimal");
+        monthMap.put("F_N_48", "decimal");
+        monthMap.put("F_N_49", "decimal");
+        monthMap.put("F_N_50", "decimal");
+        monthMap.put("F_N_51", "decimal");
+        monthMap.put("F_N_52", "decimal");
+        monthMap.put("F_N_53", "decimal");
+        monthMap.put("F_N_54", "decimal");
+        monthMap.put("F_N_55", "decimal");
+        monthMap.put("F_N_56", "decimal");
+        monthMap.put("F_N_57", "decimal");
+        monthMap.put("F_N_58", "decimal");
+        monthMap.put("F_N_59", "decimal");
+        monthMap.put("F_N_60", "decimal");
+        monthMap.put("F_N_61", "decimal");
+        monthMap.put("F_N_62", "decimal");
+        monthMap.put("F_N_63", "decimal");
+        monthMap.put("F_N_64", "decimal");
+        monthMap.put("F_N_65", "decimal");
+        monthMap.put("F_N_66", "decimal");
+        monthMap.put("F_N_67", "decimal");
+        monthMap.put("F_N_68", "decimal");
+        monthMap.put("F_N_69", "decimal");
+        monthMap.put("F_N_70", "decimal");
+        monthMap.put("F_N_71", "decimal");
+        monthMap.put("F_N_72", "decimal");
+        monthMap.put("F_N_73", "decimal");
+        monthMap.put("F_N_74", "decimal");
+        monthMap.put("F_N_75", "decimal");
+        monthMap.put("F_N_76", "decimal");
+        monthMap.put("F_N_77", "decimal");
+        monthMap.put("F_N_78", "decimal");
+        monthMap.put("F_N_79", "decimal");
+        monthMap.put("F_N_80", "decimal");
+        monthMap.put("F_N_81", "decimal");
+        monthMap.put("F_N_82", "decimal");
+        monthMap.put("F_N_83", "decimal");
+        monthMap.put("F_N_84", "decimal");
+        monthMap.put("F_N_85", "decimal");
+        monthMap.put("F_N_86", "decimal");
+        monthMap.put("F_N_87", "decimal");
+        monthMap.put("F_N_88", "decimal");
+        monthMap.put("F_N_89", "decimal");
+        monthMap.put("F_N_90", "decimal");
+        monthMap.put("F_N_91", "decimal");
+        monthMap.put("F_N_92", "decimal");
+        monthMap.put("F_N_93", "decimal");
+        monthMap.put("F_N_94", "decimal");
+        monthMap.put("F_N_95", "decimal");
+        monthMap.put("F_N_96", "decimal");
+        monthMap.put("F_N_97", "decimal");
+        monthMap.put("F_N_98", "decimal");
+        monthMap.put("F_N_99", "decimal");
+        monthMap.put("F_N_100", "decimal");
+        monthMap.put("F_V_1", "varchar");
+        monthMap.put("F_V_2", "varchar");
+        monthMap.put("F_V_3", "varchar");
+        monthMap.put("F_V_4", "varchar");
+        monthMap.put("F_V_5", "varchar");
+        monthMap.put("F_V_6", "varchar");
+        monthMap.put("F_V_7", "varchar");
+        monthMap.put("F_V_8", "varchar");
+        monthMap.put("F_V_9", "varchar");
+        monthMap.put("F_V_10", "varchar");
+        monthMap.put("F_V_11", "varchar");
+        monthMap.put("F_V_12", "varchar");
+        monthMap.put("F_V_13", "varchar");
+        monthMap.put("F_V_14", "varchar");
+        monthMap.put("F_V_15", "varchar");
+        monthMap.put("F_V_16", "varchar");
+        monthMap.put("F_V_17", "varchar");
+        monthMap.put("F_V_18", "varchar");
+        monthMap.put("F_V_19", "varchar");
+        monthMap.put("F_V_20", "varchar");
+        monthMap.put("F_D_1", "datetime");
+        monthMap.put("F_D_2", "datetime");
+        monthMap.put("F_D_3", "datetime");
+        monthMap.put("F_D_4", "datetime");
+        monthMap.put("F_D_5", "datetime");
+        monthMap.put("F_D_6", "datetime");
+        monthMap.put("F_D_7", "datetime");
+        monthMap.put("F_D_8", "datetime");
+        monthMap.put("F_D_9", "datetime");
+        monthMap.put("F_D_10", "datetime");
+        monthMap.put("F_D_11", "datetime");
+        monthMap.put("F_D_12", "datetime");
+        monthMap.put("F_D_13", "datetime");
+        monthMap.put("F_D_14", "datetime");
+        monthMap.put("F_D_15", "datetime");
+        monthMap.put("F_D_16", "datetime");
+        monthMap.put("F_D_17", "datetime");
+        monthMap.put("F_D_18", "datetime");
+        monthMap.put("F_D_19", "datetime");
+        monthMap.put("F_D_20", "datetime");
+        monthMap.put("F_B_1", "char");
+        monthMap.put("F_B_2", "char");
+        monthMap.put("F_B_3", "char");
+        monthMap.put("F_B_4", "char");
+        monthMap.put("F_B_5", "char");
+        monthMap.put("F_B_6", "char");
+        monthMap.put("F_B_7", "char");
+        monthMap.put("F_B_8", "char");
+        monthMap.put("F_B_9", "char");
+        monthMap.put("F_B_10", "char");
+        monthMap.put("F_B_11", "char");
+        monthMap.put("F_B_12", "char");
+        monthMap.put("F_B_13", "char");
+        monthMap.put("F_B_14", "char");
+        monthMap.put("F_B_15", "char");
+        monthMap.put("F_B_16", "char");
+        monthMap.put("F_B_17", "char");
+        monthMap.put("F_B_18", "char");
+        monthMap.put("F_B_19", "char");
+        monthMap.put("F_B_20", "char");
+        monthMap.put("CREATOR", "varchar");
+        monthMap.put("CREATIONTIME", "datetime");
+        monthMap.put("MODIFIER", "varchar");
+        monthMap.put("MODIFIEDTIME", "datetime");
+        monthMap.put("TS", "datetime");
+        monthMap.put("DR", "int");
+        monthMap.put("begindate", "date");
+        monthMap.put("enddate", "date");
+        monthMap.put("limittime", "int");
+        monthMap.put("storeunit", "smallint");
+        monthMap.put("store", "decimal");
+        monthMap.put("tripcnt", "int");
+        monthMap.put("staff_code", "varchar");
+        monthMap.put("isnormal", "char");
+        monthMap.put("ytenant_id", "varchar");
+        monthMap.put("outcnt", "int");
+        monthMap.put("SCHEME_ID", "varchar");
+        monthMap.put("turnleavelen", "decimal");
+    }
+
+    public static void main(String[] args) throws Exception {
+        String dbName = "hrattenddb";
+        String tableName = "ts_monthstat";
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/information_schema?serverTimezone=UTC",
+                    "root", "root");
+            String sql = "select COLUMN_NAME,DATA_TYPE from information_schema.COLUMNS where TABLE_SCHEMA = ? and TABLE_NAME = ?";
+            preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, dbName);
+            preparedStatement.setString(2, tableName);
+
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                String column_name = resultSet.getString("COLUMN_NAME");
+                String data_type = resultSet.getString("DATA_TYPE");
+                System.out.println("monthMap.put(\"" + column_name + "\",\"" + data_type + "\");");
+            }
+        } finally {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
+}
